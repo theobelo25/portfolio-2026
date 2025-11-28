@@ -17,7 +17,7 @@ const Hero = () => {
 
   return (
     <section className="flex flex-col gap-8 items-center">
-      <div className="w-full flex gap-8 items-center justify-between">
+      <div className="w-full flex flex-col md:flex-row gap-8 items-center justify-between">
         <HeroAvatar />
         <div className="basis-[60%]">
           <motion.span

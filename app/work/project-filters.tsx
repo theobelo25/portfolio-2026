@@ -6,7 +6,7 @@ const TEMP_FILTERS = ["All", "Javascript", "Frontend", "Backend"];
 const ProjectFilters = () => {
   return (
     <motion.ul
-      className="flex gap-4"
+      className="flex gap-4 md:mt-8"
       initial="hidden"
       animate="visible"
       transition={{

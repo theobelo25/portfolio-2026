@@ -31,16 +31,16 @@ const TEMP_SKILLS = [
 
 const AboutPage = () => {
   return (
-    <main className="wrapper pt-30 grid grid-cols-6 gap-4">
+    <main className="wrapper pt-30 pb-20 grid grid-cols-1 md:grid-cols-6 gap-y-4 md:gap-x-4">
       <Header className={cn("fixed top-8 left-[50%] -translate-x-[50%]")} />
       <HeroAvatar
         avatar={fun}
-        className="col-span-2 self-center justify-self-center"
+        className="col-span-1 md:col-span-2 self-center justify-self-center"
       />
       <AboutMe />
       <Skills skills={TEMP_SKILLS} />
       <motion.div
-        className="grid grid-cols-2 col-span-4 gap-4"
+        className="grid grid-cols-1 lg:grid-cols-2 col-span-4 gap-4"
         initial="hidden"
         animate="visible"
         transition={{ delayChildren: stagger(0.2) }}

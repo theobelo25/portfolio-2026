@@ -7,7 +7,7 @@ const ContactAvatar = () => {
     <div className="flex flex-col justify-center items-center col-span-1">
       <HeroAvatar />
       <motion.p
-        className="text-2xl font-press-start mt-10"
+        className="text-2xl font-press-start mt-10 text-center"
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const ContactMe = () => {
   return (
     <motion.section
-      className="col-span-1"
+      className="col-span-1 py-10"
       initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
     >

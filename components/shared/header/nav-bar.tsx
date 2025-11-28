@@ -10,7 +10,7 @@ import ModeToggle from "./mode-toggle";
 const NavigationBar = () => {
   return (
     <NavigationMenu className="relative py-2">
-      <NavigationMenuList className="flex-wrap">
+      <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link href="/">Home</Link>
