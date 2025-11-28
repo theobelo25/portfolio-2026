@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Press_Start_2P, Play, Questrial } from "next/font/google";
 import "./globals.css";
+import { AnimatePresence } from "framer-motion";
+import Footer from "./footer";
+import { ThemeProvider } from "next-themes";
+import { ViewTransitions } from "next-view-transitions";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const pressStart2P = Press_Start_2P({
+  variable: "--font-press-start-2p",
   subsets: ["latin"],
+  weight: "400",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const play = Play({
+  variable: "--font-play",
   subsets: ["latin"],
+  weight: "400",
+});
+const questrial = Questrial({
+  variable: "--font-questrial",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -17,18 +27,28 @@ export const metadata: Metadata = {
   description: "A personal and professional portfolio for Theodore Belo.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`relative ${pressStart2P.variable} ${questrial.variable} ${play.variable} antialiased`}
+        >
+          <ThemeProvider
+            attribute={"class"}
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AnimatePresence mode="wait">{children}</AnimatePresence>
+          </ThemeProvider>
+          <Footer />
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
