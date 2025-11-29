@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 import casual from "@/public/images/portfolio-avatar-full.png";
+import trueMe from "@/public/images/theo-profile.webp";
 
 const HeroAvatar = ({
   avatar,
@@ -22,7 +23,7 @@ const HeroAvatar = ({
       className={cn("aspect-square max-w-[300px] basis-[35%]", className)}
     >
       <Card className="aspect-square rounded-full overflow-hidden max-w-[300px] py-0">
-        <CardContent className="px-6">
+        <CardContent className={cn("", avatar === trueMe ? "px-0" : "px-6")}>
           <motion.div
             key={path}
             initial={{ opacity: 0 }}

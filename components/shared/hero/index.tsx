@@ -74,7 +74,7 @@ const Hero = () => {
               </motion.span>
             </motion.span>
           </span>
-          <Header className="mt-8 ml-0" />
+          <Header className="mt-8 md:ml-0" />
         </div>
       </div>
       {/* 

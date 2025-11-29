@@ -1,6 +1,6 @@
 "use client";
 import Header from "@/components/shared/header";
-import HeroAvatar from "../../components/shared/hero/hero-avatar";
+import HeroAvatar from "@/components/shared/hero/hero-avatar";
 import { cn } from "@/lib/utils";
 import { motion, stagger, Variants } from "framer-motion";
 import fun from "@/public/images/portfolio-avatar-fun.png";
@@ -14,18 +14,18 @@ const TEMP_SKILLS = [
   "HTML / CSS / SASS",
   "Javascript / Typescript",
   "PHP / Wordpress",
-  "ReactJS / Remix",
-  "NodeJS",
+  "React / Next.js / Remix",
+  "Node",
   "SQL",
   "Git / SVN",
   "Netsuite / SuiteCommerce",
-  "MVC Architecture",
   "Ansible",
   "Docker",
   "VPS Provision / Maintenance",
   "Responsive Design",
   "WCAG / Accessibility",
   "REST APIs",
+  "Headless CMS",
   "Scripting",
 ];
 

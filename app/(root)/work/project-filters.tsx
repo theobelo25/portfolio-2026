@@ -1,3 +1,4 @@
+"use client";
 import { motion, stagger, Variants } from "framer-motion";
 import { FILTER_VARIANTS } from "@/components/shared/motion/variants";
 
