@@ -18,37 +18,38 @@ const ProjectCard = ({ project }: { project: Project }) => {
     : null;
 
   return (
-    <Link href={`/projects/${project.slug.current}`}>
-      <motion.article
-        key={project.slug.current}
-        className="aspect-square"
-        variants={PROJECT_VARIANTS as Variants}
-      >
-        <Card className="relative w-full h-full flex-col justify-between overflow-hidden gap-0">
-          <Image
-            src={imageUrl!}
-            alt={`${project.title} featured image`}
-            className="absolute left-[50%] top-[50%] z-0 -translate-[50%] w-full opacity-25"
-            width={0}
-            height={0}
-            sizes="100vw"
-          />
-          <CardHeader>
-            <h1 className="font-play text-4xl">{project.title}</h1>
-          </CardHeader>
-          <CardContent>
-            <p className="font-questrial text-lg md:text-base lg:text-xs min-[1200px]:text-base">
-              {project.shortDescription}
-            </p>
-          </CardContent>
-          {project.tags && (
-            <CardFooter>
-              <Tags tags={project.tags} />
-            </CardFooter>
-          )}
-        </Card>
-      </motion.article>
-    </Link>
+    <motion.div
+      key={project.slug.current}
+      variants={PROJECT_VARIANTS as Variants}
+    >
+      <Link href={`/projects/${project.title}`}>
+        <article className="aspect-square">
+          <Card className="relative w-full h-full flex-col justify-between overflow-hidden gap-0">
+            <Image
+              src={imageUrl!}
+              alt={`${project.title} featured image`}
+              className="absolute left-[50%] top-[50%] z-0 -translate-[50%] w-full opacity-25"
+              width={0}
+              height={0}
+              sizes="100vw"
+            />
+            <CardHeader>
+              <h1 className="font-play text-4xl">{project.title}</h1>
+            </CardHeader>
+            <CardContent>
+              <p className="font-questrial text-lg md:text-base lg:text-xs min-[1200px]:text-base">
+                {project.shortDescription}
+              </p>
+            </CardContent>
+            {project.tags && (
+              <CardFooter>
+                <Tags tags={project.tags} />
+              </CardFooter>
+            )}
+          </Card>
+        </article>
+      </Link>
+    </motion.div>
   );
 };
 

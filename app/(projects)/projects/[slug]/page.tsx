@@ -19,7 +19,6 @@ const ProjectPage = async ({
     await params,
     options
   );
-  console.log(project);
 
   const projectImageUrl = project.image
     ? urlFor(project.image)?.width(550).height(310).url()

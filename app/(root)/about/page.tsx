@@ -2,11 +2,10 @@
 import Header from "@/components/shared/header";
 import HeroAvatar from "@/components/shared/hero/hero-avatar";
 import { cn } from "@/lib/utils";
-import { motion, stagger, Variants } from "framer-motion";
-import fun from "@/public/images/portfolio-avatar-fun.png";
+import { motion, stagger } from "framer-motion";
+import fun from "@/public/images/avatars/portfolio-avatar-fun.webp";
 import Skills from "./skills";
 import AboutMe from "./about-me";
-import { ABOUT_VARIANTS } from "@/components/shared/motion/variants";
 import Education from "./education";
 import Experience from "./experience";
 

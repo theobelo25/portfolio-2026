@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
-import casual from "@/public/images/portfolio-avatar-full.png";
+import casual from "@/public/images/avatars/portfolio-avatar-main.webp";
 import trueMe from "@/public/images/theo-profile.webp";
 
 const HeroAvatar = ({
@@ -35,7 +35,10 @@ const HeroAvatar = ({
               alt={"A pixel art avatar of Theodore Belo"}
               width={0}
               height={0}
-              sizes="100vw"
+              sizes="100vw,50vw"
+              fetchPriority="high"
+              loading="eager"
+              preload={true}
             />
           </motion.div>
         </CardContent>
