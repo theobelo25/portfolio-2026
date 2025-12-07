@@ -15,7 +15,7 @@ const Reflection = ({
         </CardTitle>
         <CardContent>
           <ul className="space-y-4">
-            {challenges.map((challenge) => (
+            {challenges?.map((challenge) => (
               <li key={challenge.title}>
                 <h3 className="font-play">{challenge.title}</h3>
                 <p className="font-questrial">{challenge.description}</p>

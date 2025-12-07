@@ -8,7 +8,7 @@ const ProjectLinks = ({
   return (
     <section>
       <ul className="flex gap-8 py-6">
-        {links.map((link) => (
+        {links?.map((link) => (
           <li key={link.name}>
             <a
               href={link.url}

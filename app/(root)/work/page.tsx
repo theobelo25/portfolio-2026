@@ -29,7 +29,7 @@ const WorkPage = async ({
   );
 
   const filteredProjects = projects.filter((project) => {
-    if (filter === "All") {
+    if (filter === "all" || !filter) {
       return project;
     } else {
       return project.tags.includes(filter);

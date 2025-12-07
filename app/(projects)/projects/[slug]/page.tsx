@@ -20,7 +20,7 @@ const ProjectPage = async ({
     options
   );
 
-  const projectImageUrl = project.image
+  const projectImageUrl = project?.image
     ? urlFor(project.image)?.width(550).height(310).url()
     : null;
 

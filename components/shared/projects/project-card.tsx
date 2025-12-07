@@ -11,6 +11,7 @@ import { motion, Variants } from "framer-motion";
 import { PROJECT_VARIANTS } from "../motion/variants";
 import { Project } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
+import { slugify } from "@/lib/utils";
 
 const ProjectCard = ({ project }: { project: Project }) => {
   const imageUrl = project.image
@@ -22,7 +23,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       key={project.slug.current}
       variants={PROJECT_VARIANTS as Variants}
     >
-      <Link href={`/projects/${project.title}`}>
+      <Link href={`/projects/${slugify(project.title)}`}>
         <article className="aspect-square">
           <Card className="relative w-full h-full flex-col justify-between overflow-hidden gap-0">
             <Image

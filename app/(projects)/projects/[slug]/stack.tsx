@@ -17,7 +17,7 @@ const Stack = ({
         </CardTitle>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8">
           <ul className="text-center space-y-8">
-            {stack.map((tech) => (
+            {stack?.map((tech) => (
               <li
                 key={tech.name}
                 className="flex flex-row items-center gap-3 text-xl font-questrial"
