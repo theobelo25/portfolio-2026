@@ -32,7 +32,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
             </CardHeader>
             <CardContent>
               <p className="font-questrial text-lg md:text-base lg:text-xs min-[1200px]:text-base">
-                {project.shortDescription}
+                {/* {project.shortDescription} */}
               </p>
             </CardContent>
             {project.tags && (
