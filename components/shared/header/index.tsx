@@ -7,8 +7,8 @@ const Header = ({ className }: { className?: string }) => {
   return (
     <motion.header
       className={cn(
-        "bg-black w-fit m-auto pl-6 pr-18 rounded-4xl text-white",
-        className
+        "bg-black w-fit m-auto pl-6 pr-18 rounded-4xl text-white z-999",
+        className,
       )}
       layoutId="header"
     >

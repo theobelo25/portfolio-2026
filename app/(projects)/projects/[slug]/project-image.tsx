@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { createImageUrl } from "@/lib/utils";
 import Image from "next/image";
 
 const ProjectImage = ({
@@ -13,7 +14,7 @@ const ProjectImage = ({
       <CardContent className="p-0">
         {image && (
           <Image
-            src={image!}
+            src={createImageUrl(image)}
             alt={`${projectName} featured image`}
             width={0}
             height={0}

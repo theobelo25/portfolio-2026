@@ -7,20 +7,25 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import Tags from "./tags";
-import { motion, Variants } from "framer-motion";
-import { PROJECT_VARIANTS } from "../motion/variants";
+import { motion } from "framer-motion";
 import { slugify } from "@/lib/utils";
 import { type Project } from "@/types";
-import directus from "@/lib/directus";
+import { createImageUrl } from "@/lib/utils";
 
 const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <motion.div key={project.slug} variants={PROJECT_VARIANTS as Variants}>
+    <motion.div
+      key={project.id}
+      layout
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      exit={{ scale: 0 }}
+    >
       <Link href={`/projects/${slugify(project.title)}`}>
         <article className="aspect-square">
           <Card className="relative w-full h-full flex-col justify-between overflow-hidden gap-0">
             <Image
-              src={`${directus.url}assets/${project.image}?width=600`}
+              src={createImageUrl(project.image)}
               alt={`${project.title} featured image`}
               className="absolute left-[50%] top-[50%] z-0 -translate-[50%] w-full opacity-25"
               width={0}
@@ -32,7 +37,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
             </CardHeader>
             <CardContent>
               <p className="font-questrial text-lg md:text-base lg:text-xs min-[1200px]:text-base">
-                {/* {project.shortDescription} */}
+                {project.shortDescription}
               </p>
             </CardContent>
             {project.tags && (
