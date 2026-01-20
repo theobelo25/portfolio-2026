@@ -9,25 +9,18 @@ import Link from "next/link";
 import Tags from "./tags";
 import { motion, Variants } from "framer-motion";
 import { PROJECT_VARIANTS } from "../motion/variants";
-import { Project } from "@/sanity.types";
-import { urlFor } from "@/sanity/lib/image";
 import { slugify } from "@/lib/utils";
+import { type Project } from "@/types";
+import directus from "@/lib/directus";
 
 const ProjectCard = ({ project }: { project: Project }) => {
-  const imageUrl = project.image
-    ? urlFor(project.image)?.width(366).height(366).url()
-    : null;
-
   return (
-    <motion.div
-      key={project.slug.current}
-      variants={PROJECT_VARIANTS as Variants}
-    >
+    <motion.div key={project.slug} variants={PROJECT_VARIANTS as Variants}>
       <Link href={`/projects/${slugify(project.title)}`}>
         <article className="aspect-square">
           <Card className="relative w-full h-full flex-col justify-between overflow-hidden gap-0">
             <Image
-              src={imageUrl!}
+              src={`${directus.url}assets/${project.image}?width=600`}
               alt={`${project.title} featured image`}
               className="absolute left-[50%] top-[50%] z-0 -translate-[50%] w-full opacity-25"
               width={0}

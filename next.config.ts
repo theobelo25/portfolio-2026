@@ -1,11 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   images: {
     remotePatterns: [
       {
-        protocol: "https", // Or 'http' if applicable
-        hostname: "cdn.sanity.io", // The exact hostname of the image source
+        protocol: "http",
+        hostname: "theocodesdev-directus-61bcf9-147-93-114-102.traefik.me",
+        port: "",
+        pathname: "/assets/**",
       },
     ],
   },
