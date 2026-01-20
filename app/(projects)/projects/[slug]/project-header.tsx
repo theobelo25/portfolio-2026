@@ -4,13 +4,11 @@ import ProjectLinks from "./project-links";
 
 const ProjectHeader = ({
   title,
-  name,
   image,
   tags,
   links,
 }: {
   title: string;
-  name: string;
   image: string | null;
   tags: string[];
   links: { url: string; name: string }[];
@@ -19,7 +17,7 @@ const ProjectHeader = ({
     <section className="col-span-1">
       <h1 className="text-5xl">{title}</h1>
       <ProjectLinks links={links} />
-      <ProjectImage projectName={name} image={image} />
+      <ProjectImage projectName={title} image={image} />
       <Tags tags={tags} />
     </section>
   );
