@@ -3,6 +3,7 @@ FROM node:24-alpine AS builder
 WORKDIR /app
 COPY package.json ./
 RUN npm install --frozen-lockfile # Or yarn install/pnpm install
+RUN mkdir -p /app/.next/cache && chmod -R 777 /app/.next/cache
 COPY . .
 RUN npm run build
 
