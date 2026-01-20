@@ -1,13 +1,14 @@
 "use client";
 import ProjectCard from "./project-card";
-import type { Project } from "@/sanity.types";
 import { AnimatePresence, motion, stagger } from "framer-motion";
 import { Key, useEffect, useState } from "react";
+import { type Project } from "@/types";
 
 const Projects = ({ projects }: { projects: Project[] }) => {
   const [currentProjects, setCurrentProjects] = useState(projects);
 
   useEffect(() => {
+    console.log(projects);
     setCurrentProjects(projects);
   }, [projects]);
 
@@ -27,7 +28,7 @@ const Projects = ({ projects }: { projects: Project[] }) => {
       ) : (
         <>
           {projects.map((project) => (
-            <ProjectCard key={project.slug.current} project={project} />
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </>
       )}

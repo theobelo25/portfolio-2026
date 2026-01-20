@@ -4,55 +4,31 @@ import { cn } from "@/lib/utils";
 import Projects from "../../../components/shared/projects";
 import ProjectFilters from "./project-filters";
 import Divider from "./divider";
-import { type SanityDocument } from "next-sanity";
-import { client } from "@/sanity/lib/client";
-import { Project } from "@/sanity.types";
+import { type Project } from "@/types";
 
-const PROJECTS_QUERY = `*[
-  _type == "project"
-  && defined(slug.current)
-]`;
+import directus from "@/lib/directus";
+import { readItems } from "@directus/sdk";
 
-const options = { next: { revalidate: 30 } };
+async function getProjects() {
+  // Fetch items from the 'posts' collection
+  const projects = await directus.request(readItems("projects"));
+  return projects;
+}
+
+const projects = await getProjects();
 
 const WorkPage = async ({
   searchParams,
 }: {
   searchParams: Promise<{ filter: string }>;
 }) => {
-  const { filter } = await searchParams;
-
-  const projects = await client.fetch<SanityDocument[]>(
-    PROJECTS_QUERY,
-    {},
-    options
-  );
-
-  const filteredProjects = projects.filter((project) => {
-    if (filter === "All" || !filter) {
-      return project;
-    } else {
-      return project.tags.includes(filter);
-    }
-  });
-
-  const projectFilters: string[] = [
-    ...new Set(
-      projects
-        .map((project) => {
-          return project.tags;
-        })
-        .flat()
-    ),
-  ];
-
   return (
     <main className="wrapper pt-30 flex flex-col gap-4">
       <Header className={cn("fixed top-8 left-[50%] -translate-x-[50%]")} />
       <Welcome />
-      <ProjectFilters filters={projectFilters} />
+      {/* <ProjectFilters filters={projectFilters} /> */}
       <Divider />
-      <Projects projects={filteredProjects as Project[]} />
+      <Projects projects={projects as Project[]} />
     </main>
   );
 };
