@@ -1,31 +1,21 @@
-# Stage 1: Install dependencies and build the application
+## Builder stage
 FROM node:24-alpine AS builder
 WORKDIR /app
-ARG NODE_ENV=production
-
-# Copy necessary files
-COPY package.json yarn.lock* pnpm-lock.yaml* bun.lockb* ./
-# Install dependencies
-RUN if [ -f yarn.lock ]; then yarn install --frozen-lockfile; \
-    elif [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile; \
-    elif [ -f bun.lockb ]; then bun install --frozen-lockfile; \
-    else npm install; fi
-
+COPY package.json ./
+RUN npm install --frozen-lockfile # Or yarn install/pnpm install
 COPY . .
-
-# Set output to 'standalone' to create a minimal production image
-ENV NEXT_OUTPUT=standalone
-
 RUN npm run build
 
-# Stage 2: Run the application in a minimal environment
-FROM node:20-alpine AS runner
+# Runner stage
+FROM node:24-alpine AS runner
 WORKDIR /app
-
-# Copy the standalone application from the builder stage
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/public ./public
-
-# Set the correct port and start the application
-ENV PORT=3000
-CMD ["npm", "start"]
+COPY --from=builder /app/.next/static ./static
+USER nextjs
+EXPOSE 3000
+CMD ["node", "server.js"]
