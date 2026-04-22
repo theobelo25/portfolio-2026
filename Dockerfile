@@ -1,23 +1,27 @@
-## Builder stage
-FROM node:24-alpine AS builder
+FROM node:20-alpine AS base
 WORKDIR /app
-COPY package.json ./
-RUN npm install --frozen-lockfile # Or yarn install/pnpm install
+
+FROM base AS deps
+COPY package.json package-lock.json ./
+RUN npm ci
+
+FROM base AS builder
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# Runner stage
-FROM node:24-alpine AS runner
-WORKDIR /app
+FROM base AS runner
+ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
+
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-RUN mkdir -p .next/cache
-RUN chown nextjs:nodejs .next/cache
-COPY --from=builder /app/.next/standalone ./
+
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/static ./static
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
 USER nextjs
 EXPOSE 3000
 CMD ["node", "server.js"]

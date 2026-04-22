@@ -1,7 +1,7 @@
 "use client";
 import HeroAvatar from "@/components/shared/hero/hero-avatar";
 import { motion } from "framer-motion";
-import trueMe from "@/public/images/theo-profile.webp";
+import trueMe from "@/public/images/avatars/theo-profile.webp";
 
 const ContactAvatar = () => {
   return (
