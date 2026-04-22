@@ -3,29 +3,29 @@ import Header from "@/components/shared/header";
 import HeroAvatar from "@/components/shared/hero/hero-avatar";
 import { cn } from "@/lib/utils";
 import { motion, stagger } from "framer-motion";
-import fun from "@/public/images/avatars/portfolio-avatar-fun.webp";
+import fun from "./public/images/avatars/portfolio-avatar-fun.webp";
 import Skills from "./skills";
 import AboutMe from "./about-me";
 import Education from "./education";
 import Experience from "./experience";
 
 const TEMP_SKILLS = [
-  "HTML / CSS / SASS",
-  "Javascript / Typescript",
-  "PHP / Wordpress",
+  "HTML / CSS / Tailwind",
+  "JavaScript / TypeScript",
+  "Angular",
   "React / Next.js / Remix",
-  "Node",
+  "Node.js",
+  ".NET / C#",
   "SQL",
-  "Git / SVN",
-  "Netsuite / SuiteCommerce",
-  "Ansible",
-  "Docker",
-  "VPS Provision / Maintenance",
+  "Git",
+  "Docker / Docker Compose",
+  "REST APIs",
+  "Authentication / Authorization (JWT, guards, interceptors)",
+  "Automated Testing (Vitest, Angular TestBed)",
+  "CI/CD Troubleshooting",
   "Responsive Design",
   "WCAG / Accessibility",
-  "REST APIs",
-  "Headless CMS",
-  "Scripting",
+  "Scripting / Automation",
 ];
 
 const AboutPage = () => {
