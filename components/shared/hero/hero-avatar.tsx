@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 import casual from "@/public/images/avatars/portfolio-avatar-main.webp";
-import trueMe from "@/public/images/theo-profile.webp";
+import trueMe from "@/public/images/avatars/theo-profile.webp";
 
 const HeroAvatar = ({
   avatar,

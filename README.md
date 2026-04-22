@@ -34,3 +34,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deploy on Dokploy (Docker)
+
+This project includes a production Docker setup compatible with Dokploy.
+
+1. Create a new **Application** in Dokploy from this repository.
+2. Choose **Dockerfile** as the deployment method.
+3. Use port `3000` for the service.
+4. Add any required runtime environment variables in Dokploy (for example values used by your Directus client).
+
+### Local smoke test
+
+```bash
+docker build -t portfolio-2026 .
+docker run --rm -p 3000:3000 portfolio-2026
+```
+
+Then open [http://localhost:3000](http://localhost:3000).

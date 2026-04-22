@@ -3,7 +3,7 @@ import Header from "@/components/shared/header";
 import HeroAvatar from "@/components/shared/hero/hero-avatar";
 import { cn } from "@/lib/utils";
 import { motion, stagger } from "framer-motion";
-import fun from "./public/images/avatars/portfolio-avatar-fun.webp";
+import fun from "@/public/images/avatars/portfolio-avatar-fun.webp";
 import Skills from "./skills";
 import AboutMe from "./about-me";
 import Education from "./education";

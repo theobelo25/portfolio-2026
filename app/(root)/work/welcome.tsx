@@ -1,7 +1,7 @@
 "use client";
 import HeroAvatar from "@/components/shared/hero/hero-avatar";
-import businessAvatar from "@/public/images/avatars/portfolio-avatar-business.webp";
 import { motion } from "framer-motion";
+import businessAvatar from "@/public/images/avatars/portfolio-avatar-business.webp";
 
 const Welcome = () => {
   return (
