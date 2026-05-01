@@ -1,9 +1,20 @@
+import type { Metadata } from "next";
 import Header from "@/components/shared/header";
-import HeroAvatar from "@/components/shared/hero/hero-avatar";
 import { cn } from "@/lib/utils";
-import { Mail, Github } from "lucide-react";
 import ContactMe from "./contact-me";
 import ContactAvatar from "./contact-avatar";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Get in touch with Theodore Belo — portfolio and work inquiries.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    url: "/contact",
+    title: "Contact",
+    description: "Get in touch with Theodore Belo — portfolio and work inquiries.",
+  },
+  twitter: { title: "Contact" },
+};
 
 const ContactPage = () => {
   return (

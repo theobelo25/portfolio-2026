@@ -1,13 +1,25 @@
-"use client";
+import type { Metadata } from "next";
 import Header from "@/components/shared/header";
 import HeroAvatar from "@/components/shared/hero/hero-avatar";
 import { cn } from "@/lib/utils";
-import { motion, stagger } from "framer-motion";
 import fun from "@/public/images/avatars/portfolio-avatar-fun.webp";
 import Skills from "./skills";
 import AboutMe from "./about-me";
-import Education from "./education";
-import Experience from "./experience";
+import AboutEducationExperience from "./about-education-experience";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Background, skills, education, and professional experience — Theodore Belo.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    url: "/about",
+    title: "About",
+    description:
+      "Background, skills, education, and professional experience — Theodore Belo.",
+  },
+  twitter: { title: "About" },
+};
 
 const TEMP_SKILLS = [
   "HTML / CSS / Tailwind",
@@ -28,7 +40,7 @@ const TEMP_SKILLS = [
   "Scripting / Automation",
 ];
 
-const AboutPage = () => {
+export default function AboutPage() {
   return (
     <main className="wrapper pt-30 pb-20 grid grid-cols-1 md:grid-cols-6 gap-y-4 md:gap-x-4">
       <Header className={cn("fixed top-8 left-[50%] -translate-x-[50%]")} />
@@ -38,17 +50,7 @@ const AboutPage = () => {
       />
       <AboutMe />
       <Skills skills={TEMP_SKILLS} />
-      <motion.div
-        className="grid grid-cols-1 lg:grid-cols-2 col-span-4 gap-4"
-        initial="hidden"
-        animate="visible"
-        transition={{ delayChildren: stagger(0.2) }}
-      >
-        <Education />
-        <Experience />
-      </motion.div>
+      <AboutEducationExperience />
     </main>
   );
-};
-
-export default AboutPage;
+}

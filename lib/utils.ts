@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import directus from "@/lib/directus";
+import { directusPublicUrl } from "@/lib/directus-env";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -33,7 +33,10 @@ export function getErrorMessage(error: unknown): string {
   return String(error);
 }
 
-export function createImageUrl(imageId: string): string {
-  const url = `${directus.url}assets/${imageId}`;
-  return String(url);
+/** Directus file id → absolute asset URL; already-absolute URLs are returned unchanged. */
+export function createImageUrl(imageIdOrUrl: string): string {
+  if (/^https?:\/\//i.test(imageIdOrUrl)) {
+    return imageIdOrUrl;
+  }
+  return String(`${directusPublicUrl()}/assets/${imageIdOrUrl}`);
 }

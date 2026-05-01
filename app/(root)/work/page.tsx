@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Header from "@/components/shared/header";
 import Welcome from "./welcome";
 import { cn } from "@/lib/utils";
@@ -7,21 +8,59 @@ import Divider from "./divider";
 import { type Project } from "@/types";
 import { getAllProjects, getAllTags } from "@/lib/actions/projects.actions";
 
+type MaybePromise<T> = T | Promise<T>;
+
+type WorkSearchParams = {
+  filter?: string | string[];
+};
+
+function normalizeFilter(value: WorkSearchParams["filter"]): string | null {
+  const rawValue = Array.isArray(value) ? value[0] : value;
+  if (!rawValue) return null;
+
+  try {
+    const decoded = decodeURIComponent(rawValue).trim();
+    return decoded.length > 0 ? decoded : null;
+  } catch {
+    return null;
+  }
+}
+
+export const metadata: Metadata = {
+  title: "Work",
+  description:
+    "Selected projects and case studies — web development and software engineering by Theodore Belo.",
+  alternates: { canonical: "/work" },
+  openGraph: {
+    url: "/work",
+    title: "Work",
+    description:
+      "Selected projects and case studies — web development and software engineering by Theodore Belo.",
+  },
+  twitter: { title: "Work" },
+};
+
 const WorkPage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ filter: string }>;
+  searchParams: MaybePromise<WorkSearchParams>;
 }) => {
   const { filter } = await searchParams;
-  const projects = await getAllProjects();
-  const tags = await getAllTags();
+  const [projects, tags] = await Promise.all([
+    getAllProjects(),
+    getAllTags(),
+  ]);
+  const normalizedFilter = normalizeFilter(filter);
+  const activeFilter =
+    normalizedFilter && normalizedFilter !== "All" && tags.includes(normalizedFilter)
+      ? normalizedFilter
+      : null;
 
   const filteredProjects = projects.filter((project) => {
-    if (filter === "All" || !filter) {
+    if (!activeFilter) {
       return project;
-    } else {
-      return project.tags.includes(decodeURIComponent(filter));
     }
+    return project.tags.includes(activeFilter);
   });
 
   return (

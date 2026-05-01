@@ -1,7 +1,6 @@
 "use client";
-import HeroActions from "./hero-actions";
 import Header from "../header";
-import { motion, stagger, Variants } from "framer-motion";
+import { motion, stagger, useReducedMotion, Variants } from "framer-motion";
 import { HERO_MOTION_VARIANTS } from "../motion/variants";
 import { useState } from "react";
 import HeroAvatar from "./hero-avatar";
@@ -11,6 +10,7 @@ const NAME = "Theodore Belo";
 const WELCOME = "Welcome to my portfolio!";
 
 const Hero = () => {
+  const reduceMotion = useReducedMotion() ?? false;
   const [showEyebrow] = useState(true);
   const [showName, setShowName] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
@@ -18,16 +18,20 @@ const Hero = () => {
   return (
     <section className="flex flex-col gap-8 items-center">
       <div className="w-full flex flex-col md:flex-row gap-8 items-center justify-between">
-        <HeroAvatar />
+        <HeroAvatar priority />
         <div className="basis-[60%]">
           <motion.span
             className="text-sm font-press-start"
-            initial="hidden"
+            initial={reduceMotion ? "visible" : "hidden"}
             animate={showEyebrow ? "visible" : "hidden"}
-            transition={{
-              delayChildren: stagger(0.04),
+            transition={
+              reduceMotion
+                ? { duration: 0 }
+                : { delayChildren: stagger(0.04) }
+            }
+            onAnimationComplete={() => {
+              if (!reduceMotion) setShowName(true);
             }}
-            onAnimationComplete={() => setShowName(true)}
             aria-hidden
           >
             {TITLE.split("").map((c, i) => {
@@ -42,13 +46,18 @@ const Hero = () => {
             })}
           </motion.span>
           <h1 className="text-6xl font-play mb-6">
+            <span className="sr-only">{NAME}</span>
             <motion.span
-              initial="hidden"
-              animate={showName ? "visible" : "hidden"}
-              transition={{
-                delayChildren: stagger(0.15),
+              initial={reduceMotion ? "visible" : "hidden"}
+              animate={reduceMotion || showName ? "visible" : "hidden"}
+              transition={
+                reduceMotion
+                  ? { duration: 0 }
+                  : { delayChildren: stagger(0.15) }
+              }
+              onAnimationComplete={() => {
+                if (!reduceMotion) setShowWelcome(true);
               }}
-              onAnimationComplete={() => setShowWelcome(true)}
               aria-hidden
             >
               {NAME.split("").map((c, i) => {
@@ -65,8 +74,9 @@ const Hero = () => {
           </h1>
           <span className="text-sm font-press-start">
             <motion.span
-              initial="hidden"
-              animate={showWelcome ? "visible" : "hidden"}
+              initial={reduceMotion ? "visible" : "hidden"}
+              animate={reduceMotion || showWelcome ? "visible" : "hidden"}
+              transition={reduceMotion ? { duration: 0 } : undefined}
               aria-hidden
             >
               <motion.span variants={HERO_MOTION_VARIANTS as Variants}>

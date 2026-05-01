@@ -1,0 +1,14 @@
+# Production-like local run (same image Dokploy builds from Dockerfile)
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DIRECTUS_URL: ${DIRECTUS_URL:-}
+      NEXT_PUBLIC_DIRECTUS_URL: ${NEXT_PUBLIC_DIRECTUS_URL:-}
+    restart: unless-stopped

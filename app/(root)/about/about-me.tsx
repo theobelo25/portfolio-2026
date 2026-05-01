@@ -1,14 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import AboutMeMotion from "./about-me-motion";
 
 const AboutMe = () => {
   return (
-    <motion.div
-      className="flex flex-col items-center col-span-4"
-      initial={{ opacity: 0, y: 100 }}
-      animate={{ opacity: 1, y: 0 }}
-    >
+    <AboutMeMotion>
       <h1 className="text-5xl font-play">About Me</h1>
       <p className="py-6">
         I’m a full-stack web developer with 5+ years of experience building
@@ -27,7 +23,7 @@ const AboutMe = () => {
           Download CV
         </Link>
       </Button>
-    </motion.div>
+    </AboutMeMotion>
   );
 };
 

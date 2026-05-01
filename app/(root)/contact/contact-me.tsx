@@ -1,34 +1,31 @@
-"use client";
-import { Github, Mail } from "lucide-react";
-import { motion } from "framer-motion";
+import { ExternalLink, Github, Mail } from "lucide-react";
+import ContactMeMotion from "./contact-me-motion";
 
 const ContactMe = () => {
   return (
-    <motion.section
-      className="col-span-1 py-10"
-      initial={{ opacity: 0, x: -100 }}
-      animate={{ opacity: 1, x: 0 }}
-    >
+    <ContactMeMotion>
       <h1 className="text-5xl font-play text-center">Contact Me</h1>
       <div className="h-full py-10 flex flex-col justify-center items-center gap-4">
-        <Mail size={70} />
+        <Mail size={70} aria-hidden="true" />
         <a
           className="font-questrial text-xl mb-10"
           href="mailto:theo.belo25@gmail.com"
         >
-          theo.belo25@gmail.com
+          Email Theodore
         </a>
-        <Github size={70} />
+        <Github size={70} aria-hidden="true" />
         <a
           href="https://github.com/theobelo25/"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-questrial text-xl"
+          aria-label="View Theodore on GitHub (opens in a new tab)"
+          className="font-questrial text-xl inline-flex items-center gap-1"
         >
-          https://github.com/theobelo25/
+          View Theodore on GitHub
+          <ExternalLink size={16} aria-hidden="true" />
         </a>
       </div>
-    </motion.section>
+    </ContactMeMotion>
   );
 };
 

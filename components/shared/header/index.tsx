@@ -1,4 +1,5 @@
 "use client";
+
 import NavigationBar from "./nav-bar";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";

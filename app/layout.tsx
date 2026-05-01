@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Press_Start_2P, Play, Questrial } from "next/font/google";
 import "./globals.css";
-import { AnimatePresence } from "framer-motion";
-import Footer from "../components/footer";
+import { siteDescription, siteName, siteUrl } from "@/lib/site";
 import { ThemeProvider } from "next-themes";
 import { ViewTransitions } from "next-view-transitions";
 
@@ -23,11 +22,38 @@ const questrial = Questrial({
 });
 
 export const metadata: Metadata = {
-  title: "TheoCodes.dev",
-  description: "A personal and professional portfolio for Theodore Belo.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteName,
+    template: `%s | ${siteName}`,
+  },
+  description: siteDescription,
+  applicationName: siteName,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName,
+    title: siteName,
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteName,
+    description: siteDescription,
+  },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -44,7 +70,13 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <AnimatePresence mode="wait">{children}</AnimatePresence>
+            <a
+              href="#main-content"
+              className="fixed left-4 top-0 z-[200] -translate-y-full rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground shadow-md transition-transform focus:translate-y-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              Skip to main content
+            </a>
+            {children}
           </ThemeProvider>
         </body>
       </html>

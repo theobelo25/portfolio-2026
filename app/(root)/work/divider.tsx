@@ -1,15 +1,3 @@
-"use client";
-import { motion } from "framer-motion";
-
-const Divider = () => {
-  return (
-    <motion.div
-      className="h-px bg-white"
-      initial={{ width: 0 }}
-      animate={{ width: "80%" }}
-      transition={{ duration: 0.7, ease: "easeInOut" }}
-    />
-  );
-};
+const Divider = () => <div className="h-px bg-white w-[80%]" />;
 
 export default Divider;
