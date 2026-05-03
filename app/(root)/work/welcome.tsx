@@ -10,6 +10,7 @@ const Welcome = () => {
         className="order-2 md:order-1 col-span-1 md:col-span-4"
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
       >
         <h1 className="text-6xl font-play text-center pb-8 lg:pb-16">
           My Work

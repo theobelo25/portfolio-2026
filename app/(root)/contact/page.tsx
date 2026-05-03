@@ -1,7 +1,5 @@
 import Header from "@/components/shared/header";
-import HeroAvatar from "@/components/shared/hero/hero-avatar";
 import { cn } from "@/lib/utils";
-import { Mail, Github } from "lucide-react";
 import ContactMe from "./contact-me";
 import ContactAvatar from "./contact-avatar";
 

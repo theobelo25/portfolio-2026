@@ -25,7 +25,7 @@ const Hero = () => {
             initial="hidden"
             animate={showEyebrow ? "visible" : "hidden"}
             transition={{
-              delayChildren: stagger(0.04),
+              delayChildren: stagger(0.02),
             }}
             onAnimationComplete={() => setShowName(true)}
             aria-hidden
@@ -46,7 +46,7 @@ const Hero = () => {
               initial="hidden"
               animate={showName ? "visible" : "hidden"}
               transition={{
-                delayChildren: stagger(0.15),
+                delayChildren: stagger(0.075),
               }}
               onAnimationComplete={() => setShowWelcome(true)}
               aria-hidden

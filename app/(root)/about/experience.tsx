@@ -6,9 +6,9 @@ import Company from "./company";
 const Experience = () => {
   return (
     <motion.div variants={ABOUT_VARIANTS as Variants} className="col-span-1">
+      <h2 className="font-play mb-4 text-2xl">Experience</h2>
       <Card className="aspect-square">
         <CardContent>
-          <h2 className="font-play text-2xl mb-3">Experience</h2>
           <Company
             name={"Kenzerama Productions"}
             position={"Co-Owner / Videographer"}

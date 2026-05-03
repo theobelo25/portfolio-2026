@@ -21,6 +21,7 @@ const HeroAvatar = ({
     <motion.div
       layoutId="avatar"
       className={cn("aspect-square max-w-[300px] basis-[35%]", className)}
+      transition={{ layout: { duration: 0.25, ease: "easeInOut" } }}
     >
       <Card className="aspect-square rounded-full overflow-hidden max-w-[300px] py-0">
         <CardContent className={cn("", avatar === trueMe ? "px-0" : "px-6")}>
@@ -29,6 +30,7 @@ const HeroAvatar = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Image
               src={avatar || casual}

@@ -11,6 +11,7 @@ const Header = ({ className }: { className?: string }) => {
         className,
       )}
       layoutId="header"
+      transition={{ layout: { duration: 0.25, ease: "easeInOut" } }}
     >
       <NavigationBar />
     </motion.header>

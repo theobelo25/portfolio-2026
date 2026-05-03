@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Press_Start_2P, Play, Questrial } from "next/font/google";
 import "./globals.css";
-import { AnimatePresence } from "framer-motion";
-import Footer from "../components/footer";
 import { ThemeProvider } from "next-themes";
 import { ViewTransitions } from "next-view-transitions";
 
@@ -44,7 +42,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <AnimatePresence mode="wait">{children}</AnimatePresence>
+            {children}
           </ThemeProvider>
         </body>
       </html>

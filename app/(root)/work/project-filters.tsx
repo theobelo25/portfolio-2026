@@ -10,7 +10,7 @@ const ProjectFilters = ({ filters }: { filters: string[] }) => {
       initial="hidden"
       animate="visible"
       transition={{
-        delayChildren: stagger(0.15),
+        delayChildren: stagger(0.075),
       }}
     >
       <motion.li variants={FILTER_VARIANTS as Variants}>

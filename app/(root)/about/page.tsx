@@ -9,24 +9,43 @@ import AboutMe from "./about-me";
 import Education from "./education";
 import Experience from "./experience";
 
-const TEMP_SKILLS = [
-  "HTML / CSS / Tailwind",
-  "JavaScript / TypeScript",
-  "Angular",
-  "React / Next.js / Remix",
-  "Node.js",
-  ".NET / C#",
-  "SQL",
-  "Git",
-  "Docker / Docker Compose",
-  "REST APIs",
-  "Authentication / Authorization (JWT, guards, interceptors)",
-  "Automated Testing (Vitest, Angular TestBed)",
-  "CI/CD Troubleshooting",
-  "Responsive Design",
-  "WCAG / Accessibility",
-  "Scripting / Automation",
-];
+const SKILL_CATEGORIES = [
+  {
+    title: "Languages & Frameworks",
+    items: [
+      "TypeScript",
+      "JavaScript",
+      "Angular",
+      "React",
+      "Next.js",
+      "Node.js (NestJS)",
+      "ASP.NET Core",
+      "Go",
+    ],
+  },
+  {
+    title: "Backend & Architecture",
+    items: [
+      "REST APIs",
+      "JWT Auth (with refresh rotation)",
+      "SOLID",
+      "Clean Architecture",
+      "Repository & Unit of Work",
+    ],
+  },
+  {
+    title: "Databases",
+    items: ["PostgreSQL", "Prisma", "EF Core", "SQL", "Migrations"],
+  },
+  {
+    title: "DevOps & Tooling",
+    items: ["Docker", "CI/CD", "Dokploy", "Logging (Pino, slog)"],
+  },
+  {
+    title: "Testing",
+    items: ["Jest", "Angular TestBed", "API/E2E testing"],
+  },
+] as const;
 
 const AboutPage = () => {
   return (
@@ -37,16 +56,16 @@ const AboutPage = () => {
         className="col-span-1 md:col-span-2 self-center justify-self-center"
       />
       <AboutMe />
-      <Skills skills={TEMP_SKILLS} />
       <motion.div
-        className="grid grid-cols-1 lg:grid-cols-2 col-span-4 gap-4"
+        className="col-span-1 mx-auto flex w-full max-w-[300px] flex-col gap-4 md:col-span-2 md:justify-self-center"
         initial="hidden"
         animate="visible"
-        transition={{ delayChildren: stagger(0.2) }}
+        transition={{ delayChildren: stagger(0.1) }}
       >
         <Education />
         <Experience />
       </motion.div>
+      <Skills categories={SKILL_CATEGORIES} />
     </main>
   );
 };

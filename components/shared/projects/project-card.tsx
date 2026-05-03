@@ -20,6 +20,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       exit={{ scale: 0 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
     >
       <Link href={`/projects/${slugify(project.title)}`}>
         <article className="aspect-square">
