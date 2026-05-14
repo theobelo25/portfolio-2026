@@ -4,14 +4,14 @@ import { type Project } from "@/types";
 import { getErrorMessage } from "../utils";
 
 export async function getAllProjects() {
-  // Fetch items from the 'posts' collection
-  let projects: Project[];
   try {
-    projects = (await directus.request(readItems("projects"))) as Project[];
+    return (await directus.request(readItems("projects"))) as Project[];
   } catch (error) {
-    throw new Error(getErrorMessage(error));
+    if (process.env.NODE_ENV === "development") {
+      console.warn("[Directus] getAllProjects:", getErrorMessage(error));
+    }
+    return [];
   }
-  return projects;
 }
 
 export async function getProject(slug: string) {
@@ -27,7 +27,10 @@ export async function getProject(slug: string) {
     );
     return projects[0];
   } catch (error) {
-    throw new Error(getErrorMessage(error));
+    if (process.env.NODE_ENV === "development") {
+      console.warn("[Directus] getProject:", slug, getErrorMessage(error));
+    }
+    return undefined;
   }
 }
 
@@ -45,7 +48,10 @@ export async function getAllTags() {
       tags = [...new Set([...tags, ...project.tags])];
     });
   } catch (error) {
-    throw new Error(getErrorMessage(error));
+    if (process.env.NODE_ENV === "development") {
+      console.warn("[Directus] getAllTags:", getErrorMessage(error));
+    }
+    return [];
   }
 
   return tags;

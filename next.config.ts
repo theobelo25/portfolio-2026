@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/assets/**",
       },
+      {
+        protocol: "https",
+        hostname: "admin.theocodes.dev",
+        port: "",
+        pathname: "/assets/**",
+      },
     ],
   },
 };

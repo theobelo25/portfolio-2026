@@ -1,7 +1,15 @@
 import { createDirectus, rest } from "@directus/sdk";
 
-const DIRECTUS_URL =
-  "http://theocodesdev-directus-61bcf9-147-93-114-102.traefik.me"; // e.g., 'http://localhost:8055' or your cloud URL
+/** Server: set DIRECTUS_URL. Client (image URLs): set NEXT_PUBLIC_DIRECTUS_URL when it differs. */
+const rawDirectusUrl =
+  process.env.DIRECTUS_URL ??
+  process.env.NEXT_PUBLIC_DIRECTUS_URL ??
+  "https://admin.theocodes.dev";
+
+/** Directus SDK requires an absolute URL; env values like `host.example` are normalized. */
+const DIRECTUS_URL = /^https?:\/\//i.test(rawDirectusUrl)
+  ? rawDirectusUrl
+  : `https://${rawDirectusUrl}`;
 // const PUBLIC_TOKEN = "YOUR_OPTIONAL_STATIC_TOKEN"; // Use for private data/actions, otherwise can be omitted
 
 // Create the client instance
