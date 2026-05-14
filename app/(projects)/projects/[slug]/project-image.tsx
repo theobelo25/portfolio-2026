@@ -11,16 +11,17 @@ const ProjectImage = ({
 }) => {
   return (
     <Card className="p-0 my-4 overflow-hidden">
-      <CardContent className="p-0">
+      <CardContent className="p-0 px-0">
         {image && (
-          <Image
-            src={createImageUrl(image)}
-            alt={`${projectName} featured image`}
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="w-full"
-          />
+          <div className="relative aspect-video w-full">
+            <Image
+              src={createImageUrl(image)}
+              alt={`${projectName} featured image`}
+              fill
+              sizes="(min-width: 1024px) 896px, 100vw"
+              className="object-cover"
+            />
+          </div>
         )}
       </CardContent>
     </Card>

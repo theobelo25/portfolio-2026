@@ -1,4 +1,4 @@
-import { Github, Globe } from "lucide-react";
+import { ExternalLink, Github, Globe } from "lucide-react";
 
 const ProjectLinks = ({
   links,
@@ -15,9 +15,16 @@ const ProjectLinks = ({
               target="_blank"
               rel="noopener noreferrer"
               className="flex gap-2 items-center"
+              aria-label={`${link.name} (opens in a new tab)`}
             >
-              {link.name === "Website" ? <Globe /> : <Github />}
+              {link.name === "Website" ? (
+                <Globe aria-hidden="true" />
+              ) : (
+                <Github aria-hidden="true" />
+              )}
               {link.name}
+              <ExternalLink className="size-4" aria-hidden="true" />
+              <span className="sr-only">(opens in a new tab)</span>
             </a>
           </li>
         ))}

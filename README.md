@@ -35,20 +35,32 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## Deploy on Dokploy (Docker)
+## Docker
 
-This project includes a production Docker setup compatible with Dokploy.
-
-1. Create a new **Application** in Dokploy from this repository.
-2. Choose **Dockerfile** as the deployment method.
-3. Use port `3000` for the service.
-4. Add any required runtime environment variables in Dokploy (for example values used by your Directus client).
-
-### Local smoke test
+### Development (hot reload)
 
 ```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+
+Open [http://localhost:3000](http://localhost:3000). The app directory is mounted into the container; `node_modules` uses a named volume so installs stay inside Docker.
+
+### Production image (local)
+
+```bash
+docker compose up --build
+# or
 docker build -t portfolio-2026 .
 docker run --rm -p 3000:3000 portfolio-2026
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
+## Deploy on Dokploy
+
+The production image is built from the root `Dockerfile` using Next.js `output: "standalone"`.
+
+1. Create a new **Application** in Dokploy from this repository.
+2. Set the build type to **Dockerfile** (context: repository root, Dockerfile path: `Dockerfile`).
+3. Expose port **3000** and map it in Traefik/your reverse proxy as needed.
+4. Add runtime environment variables in Dokploy if you later move secrets or URLs (for example Directus) into env instead of hard-coding.
+
+No separate `docker-compose.yml` is required on the server unless you prefer Compose-based stacks in Dokploy; a single-container Dockerfile deploy is enough.

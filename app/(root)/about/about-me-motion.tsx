@@ -1,0 +1,19 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+export default function AboutMeMotion({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <motion.div
+      className="flex flex-col items-center col-span-4"
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
+      {children}
+    </motion.div>
+  );
+}

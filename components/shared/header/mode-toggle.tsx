@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,27 +7,40 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuContent,
-  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "next-themes";
 import { SunIcon, MoonIcon, SunMoon } from "lucide-react";
 
+const emptySubscribe = () => () => {};
+type ThemeOption = "system" | "dark" | "light";
+
+function useIsClient() {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+}
+
 const ModeToggle = () => {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   if (!mounted) return null;
+
+  const themeAriaLabel =
+    theme === "system"
+      ? "Change theme, currently system default"
+      : `Change theme, currently ${theme}`;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="focus-visible:ring-0 focus-visible:ring-offset-0"
+          aria-label={themeAriaLabel}
         >
           {theme === "system" ? (
             <SunMoon />
@@ -41,24 +54,14 @@ const ModeToggle = () => {
       <DropdownMenuContent>
         <DropdownMenuLabel>Appearance</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem
-          checked={theme === "system"}
-          onClick={() => setTheme("system")}
+        <DropdownMenuRadioGroup
+          value={(theme ?? "system") as ThemeOption}
+          onValueChange={(value) => setTheme(value as ThemeOption)}
         >
-          System
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem
-          checked={theme === "dark"}
-          onClick={() => setTheme("dark")}
-        >
-          Dark
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem
-          checked={theme === "light"}
-          onClick={() => setTheme("light")}
-        >
-          Light
-        </DropdownMenuCheckboxItem>
+          <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );
