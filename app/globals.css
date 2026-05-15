@@ -127,3 +127,25 @@
 @utility wrapper {
   @apply max-w-7xl lg:mx-auto p-5 md:px-10 w-full;
 }
+
+/* Page enter: layout keeps this shell; `key={pathname}` remounts so animation always runs. */
+@keyframes route-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.route-transition-shell {
+  animation: route-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-transition-shell {
+    animation: none;
+  }
+}

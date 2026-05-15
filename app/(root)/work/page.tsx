@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import Header from "@/components/shared/header";
 import Welcome from "./welcome";
-import { cn } from "@/lib/utils";
 import Projects from "../../../components/shared/projects";
 import ProjectFilters from "./project-filters";
 import Divider from "./divider";
@@ -65,7 +63,6 @@ const WorkPage = async ({
 
   return (
     <main className="wrapper pt-30 flex flex-col gap-4">
-      <Header className={cn("fixed top-8 left-[50%] -translate-x-[50%]")} />
       <Welcome />
       <ProjectFilters filters={tags} />
       <Divider />

@@ -5,8 +5,7 @@
  * If only one is set, it is used for both. For split public/internal setups, set both.
  */
 
-export const DIRECTUS_URL_FALLBACK =
-  "https://theocodesdev-directus-61bcf9-147-93-114-102.traefik.me";
+export const DIRECTUS_URL_FALLBACK = "https://admin.theocodes.dev";
 
 function normalizeBase(url: string) {
   return url.replace(/\/$/, "");
