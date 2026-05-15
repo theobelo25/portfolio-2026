@@ -1,5 +1,4 @@
 "use client";
-
 import NavigationBar from "./nav-bar";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -12,6 +11,7 @@ const Header = ({ className }: { className?: string }) => {
         className,
       )}
       layoutId="header"
+      transition={{ layout: { duration: 0.25, ease: "easeInOut" } }}
     >
       <NavigationBar />
     </motion.header>

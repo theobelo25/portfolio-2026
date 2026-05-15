@@ -1,28 +1,23 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
+/**
+ * Route enter uses CSS (see `.route-transition-shell` in `globals.css`).
+ * Framer `AnimatePresence` + App Router RSC `children` in the same commit as
+ * `pathname` reliably skips enter animations; `key={pathname}` remounts this
+ * shell on every path change so the keyframe always runs.
+ */
 export default function RouteTransition({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const reduceMotion = useReducedMotion();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={pathname}
-        className="w-full"
-        initial={reduceMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: reduceMotion ? 0 : 0.18, ease: "easeOut" }}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <div key={pathname} className="route-transition-shell w-full">
+      {children}
+    </div>
   );
 }

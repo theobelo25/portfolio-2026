@@ -1,16 +1,28 @@
+"use client";
+import { motion, stagger, Variants } from "framer-motion";
+import { FILTER_VARIANTS } from "@/components/shared/motion/variants";
 import FilterButton from "./filter-button";
 
-export default function ProjectFilters({ filters }: { filters: string[] }) {
+const ProjectFilters = ({ filters }: { filters: string[] }) => {
   return (
-    <ul className="flex gap-4 flex-wrap md:mt-8">
-      <li>
-        <FilterButton filter="All" />
-      </li>
+    <motion.ul
+      className="flex gap-4 flex-wrap md:mt-8"
+      initial="hidden"
+      animate="visible"
+      transition={{
+        delayChildren: stagger(0.075),
+      }}
+    >
+      <motion.li variants={FILTER_VARIANTS as Variants}>
+        <FilterButton filter={"All"} />
+      </motion.li>
       {filters.map((filter) => (
-        <li key={filter}>
+        <motion.li key={filter} variants={FILTER_VARIANTS as Variants}>
           <FilterButton filter={filter} />
-        </li>
+        </motion.li>
       ))}
-    </ul>
+    </motion.ul>
   );
-}
+};
+
+export default ProjectFilters;

@@ -1,13 +1,14 @@
+import { ABOUT_VARIANTS } from "@/components/shared/motion/variants";
 import { Card, CardContent } from "@/components/ui/card";
+import { motion, Variants } from "framer-motion";
 import Company from "./company";
-import RevealSection from "./reveal-section";
 
 const Experience = () => {
   return (
-    <RevealSection className="col-span-1">
+    <motion.div variants={ABOUT_VARIANTS as Variants} className="col-span-1">
+      <h2 className="font-play mb-4 text-2xl">Experience</h2>
       <Card className="aspect-square">
         <CardContent>
-          <h2 className="font-play text-2xl mb-3">Experience</h2>
           <Company
             name={"Kenzerama Productions"}
             position={"Co-Owner / Videographer"}
@@ -25,7 +26,7 @@ const Experience = () => {
           />
         </CardContent>
       </Card>
-    </RevealSection>
+    </motion.div>
   );
 };
 
