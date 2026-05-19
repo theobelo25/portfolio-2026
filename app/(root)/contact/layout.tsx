@@ -1,15 +1,17 @@
-import type { Metadata } from "next";
-import { APP_NAME } from "@/lib/constants";
+import ContactPageJsonLd from "@/components/seo/contact-page-json-ld";
+import { contactPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Contact | TheoCodes.dev",
-  description: `Reach ${APP_NAME} by email, GitHub, and LinkedIn, or download a CV.`,
-};
+export const metadata = contactPageMetadata;
 
 export default function ContactLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <>
+      <ContactPageJsonLd />
+      {children}
+    </>
+  );
 }

@@ -8,9 +8,9 @@ export default function RootLayout({
 }>) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main id="main-content" tabIndex={-1}>
+      <div>
         <RootChrome>{children}</RootChrome>
-      </main>
+      </div>
       <Footer />
     </div>
   );

@@ -1,16 +1,19 @@
-import Header from "@/components/shared/header";
-import { cn } from "@/lib/utils";
+import ProjectCardSkeleton from "@/components/shared/projects/project-card-skeleton";
 
 export default function WorkLoading() {
   return (
-    <main className="wrapper pt-30 flex flex-col gap-4">
-      <Header className={cn("fixed top-8 left-[50%] -translate-x-[50%]")} />
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="wrapper flex flex-col gap-4 pt-30 pb-page-footer"
+    >
+      {/* Reserve space for Welcome (nav, avatar, intro) without skeleton shapes there */}
+      <div className="min-h-[28rem] md:min-h-[18rem]" aria-hidden />
       <div
         className="flex flex-col gap-6 animate-pulse"
         aria-busy="true"
         aria-label="Loading work"
       >
-        <div className="mx-auto h-12 w-56 rounded-md bg-muted" />
         <div className="flex flex-wrap gap-2">
           {Array.from({ length: 5 }).map((_, i) => (
             <div
@@ -20,9 +23,9 @@ export default function WorkLoading() {
           ))}
         </div>
         <div className="h-px w-full bg-border" />
-        <section className="grid grid-cols-1 gap-4 pb-8 md:grid-cols-2 lg:grid-cols-3">
+        <section className="grid grid-cols-1 gap-4 pb-8">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="aspect-square rounded-lg bg-muted" />
+            <ProjectCardSkeleton key={i} />
           ))}
         </section>
       </div>

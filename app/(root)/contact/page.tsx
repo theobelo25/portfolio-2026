@@ -3,7 +3,11 @@ import ContactAvatar from "./contact-avatar";
 
 const ContactPage = () => {
   return (
-    <main className="wrapper pt-30 pb-40 flex flex-col justify-center min-h-screen">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="wrapper pt-30 pb-page-footer-lg flex flex-col justify-center min-h-screen"
+    >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
         <ContactMe />
         <ContactAvatar />

@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Press_Start_2P, Play, Questrial } from "next/font/google";
 import "./globals.css";
-import { siteDescription, siteName, siteUrl } from "@/lib/site";
+import PersonProfileJsonLd from "@/components/seo/person-profile-json-ld";
+import { createBaseMetadata } from "@/lib/metadata";
 import { ThemeProvider } from "next-themes";
 import { ViewTransitions } from "next-view-transitions";
 
@@ -21,36 +22,11 @@ const questrial = Questrial({
   weight: "400",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: siteName,
-    template: `%s | ${siteName}`,
-  },
-  description: siteDescription,
-  applicationName: siteName,
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName,
-    title: siteName,
-    description: siteDescription,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteName,
-    description: siteDescription,
-  },
+export const metadata: Metadata = createBaseMetadata();
+
+/** Lets `env(safe-area-inset-bottom)` reflect the home indicator on notched devices. */
+export const viewport: Viewport = {
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -76,6 +52,7 @@ export default function RootLayout({
             >
               Skip to main content
             </a>
+            <PersonProfileJsonLd />
             {children}
           </ThemeProvider>
         </body>

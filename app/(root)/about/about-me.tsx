@@ -1,45 +1,72 @@
-import { FileText } from "lucide-react";
-import { motion } from "framer-motion";
+import { FileText, Github } from "lucide-react";
 import Link from "next/link";
-import { APP_NAME, RESUME_HREF } from "@/lib/constants";
+import {
+  APP_NAME,
+  AVAILABILITY_LINE,
+  GITHUB_HANDLE,
+  GITHUB_URL,
+  RESUME_HREF,
+  YEARS_EXPERIENCE,
+} from "@/lib/constants";
+import LocaleText from "@/components/shared/locale-text";
+import {
+  ProfileLinkList,
+  ProfileLinkRow,
+} from "@/components/shared/profile-link-row";
 
 const AboutMe = () => {
   return (
-    <motion.div
-      className="flex flex-col items-center col-span-4"
-      initial={{ opacity: 0, y: 100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
-    >
+    <>
       <h1 className="text-5xl font-play">About Me</h1>
       <p className="py-6">
-        I’m a full-stack web developer with 5+ years of experience building
-        responsive, user-focused applications. I work across the stack, from
-        intuitive front-end interfaces to scalable backend services, using
-        technologies like Angular, React, TypeScript, Node.js, .NET, and
-        SQL/PostgreSQL. I enjoy turning complex requirements into clean,
-        reliable, and maintainable solutions. I’ve collaborated with designers,
-        product leads, QA teams, and clients to deliver polished products that
-        solve real problems. I’m passionate about writing high-quality code,
-        continuously improving my craft, and building software that’s both
-        practical and thoughtful.
+        I’m a full-stack web developer with {YEARS_EXPERIENCE}+ years spanning
+        B2B e-commerce, enterprise automation, and public marketing web. As a
+        NetSuite consultant and SuiteCommerce developer I shipped storefronts
+        and scripted integrations, operations, and reporting against client
+        datasets spanning millions of rows. In my other roles I built marketing
+        sites and experiences with Canadian English and{" "}
+        <LocaleText lang="fr">français</LocaleText> localization for a major U.S.
+        brand—including WCAG-minded components, keyboard-tested patterns, and
+        launch discipline where confidentiality mattered. I’m at home in greenfield and legacy
+        codebases and typically ship with trunk-based workflows and CI. Across
+        the stack I use Angular, React, TypeScript, Node.js, .NET, and
+        SQL/PostgreSQL—working with design, product, QA, and clients to turn
+        complex requirements into maintainable, reliable software.
       </p>
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        <FileText
-          className="size-8 shrink-0 sm:size-10 md:size-12"
-          aria-hidden
-        />
+      <p className="pb-2 font-questrial text-subtle">
+        {AVAILABILITY_LINE}
+      </p>
+      <p className="pb-6 font-questrial text-subtle">
+        Selected builds and write-ups are on the{" "}
         <Link
+          href="/work"
+          className="text-foreground underline underline-offset-4 decoration-foreground/40 transition-colors hover:decoration-foreground"
+        >
+          Work page
+        </Link>
+        .
+      </p>
+      <ProfileLinkList align="center" layout="inline">
+        <ProfileLinkRow
+          icon={FileText}
+          label="Download CV"
           href={RESUME_HREF}
           download
           prefetch={false}
-          className="font-questrial text-xl inline-flex items-center gap-2"
-          aria-label={`Download ${APP_NAME}'s resume (PDF)`}
-        >
-          Download CV
-        </Link>
-      </div>
-    </motion.div>
+          align="center"
+          ariaLabel={`Download ${APP_NAME}'s resume (PDF)`}
+        />
+        <ProfileLinkRow
+          icon={Github}
+          label="GitHub"
+          subtitle={GITHUB_HANDLE}
+          href={GITHUB_URL}
+          external
+          align="center"
+          ariaLabel={`${APP_NAME} on GitHub, ${GITHUB_URL}`}
+        />
+      </ProfileLinkList>
+    </>
   );
 };
 

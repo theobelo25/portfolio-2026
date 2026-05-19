@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { DIRECTUS_URL_FALLBACK } from "./lib/directus-env";
+import { buildSecurityHeaders } from "./lib/security-headers";
 
 type RemotePattern = NonNullable<
   NonNullable<NextConfig["images"]>["remotePatterns"]
@@ -52,6 +53,16 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: directusAssetRemotePatterns(),
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: buildSecurityHeaders({
+          isProduction: process.env.NODE_ENV === "production",
+        }),
+      },
+    ];
   },
 };
 

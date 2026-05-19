@@ -1,12 +1,15 @@
 /**
  * CMS / Directus data cache (Next.js Data Cache via unstable_cache + tags).
  *
+ * @see docs/adr/001-cms-cache-and-revalidation.md — full rationale (TTL, tags, webhooks).
+ *
  * CMS_REVALIDATE_SECONDS — time-based revalidation in seconds (default 300).
  *   Daily is fine for a portfolio: visitors see cached work until the window expires,
  *   or you call POST /api/revalidate after a CMS publish. Example: CMS_REVALIDATE_SECONDS=86400
  *
- * Route-level `export const revalidate` is not used here: Next.js 16 requires a
+ * Route-level `export const revalidate` is not used for project data: Next.js 16 requires a
  * statically analyzable literal on the page; env-driven TTL lives on unstable_cache only.
+ * (Sitemap uses its own fixed `revalidate = 86400` in app/sitemap.ts.)
  *
  * REVALIDATE_SECRET — shared secret for POST /api/revalidate (?secret= or x-revalidate-secret).
  */

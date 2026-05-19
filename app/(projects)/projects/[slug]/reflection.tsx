@@ -1,4 +1,6 @@
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import ProjectProse from "./project-prose";
+import ProjectSection from "./project-section";
+import ProjectSectionHeading from "./project-section-heading";
 
 const Reflection = ({
   challenges,
@@ -7,32 +9,44 @@ const Reflection = ({
   challenges: { title: string; description: string }[];
   learning: string;
 }) => {
+  const hasChallenges = challenges?.length > 0;
+  const hasLearning = typeof learning === "string" && learning.trim().length > 0;
+
+  if (!hasChallenges && !hasLearning) return null;
+
   return (
-    <section className="grid grid-cols-1 gap-8 col-span-1 lg:col-span-2">
-      <Card className="col-span-1">
-        <CardTitle>
-          <h2 className="font-play text-center">Challenges</h2>
-        </CardTitle>
-        <CardContent>
-          <ul className="space-y-4">
-            {challenges?.map((challenge) => (
-              <li key={challenge.title}>
-                <h3 className="font-play">{challenge.title}</h3>
-                <p className="font-questrial">{challenge.description}</p>
+    <>
+      {hasChallenges ? (
+        <ProjectSection>
+          <ProjectSectionHeading eyebrow="Process" title="Challenges" />
+          <ol className="space-y-8">
+            {challenges.map((challenge, index) => (
+              <li
+                key={challenge.title}
+                className="border-l-2 border-primary/55 pl-4"
+              >
+                <p className="mb-1.5 font-questrial text-xs tabular-nums uppercase tracking-wide text-muted-foreground">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="font-play text-lg leading-snug text-foreground">
+                  {challenge.title}
+                </h3>
+                <p className="mt-1.5 font-questrial text-base leading-relaxed text-muted-foreground">
+                  {challenge.description}
+                </p>
               </li>
             ))}
-          </ul>
-        </CardContent>
-      </Card>
-      <Card className="col-span-1">
-        <CardTitle>
-          <h2 className="font-play text-center">What I Learned</h2>
-        </CardTitle>
-        <CardContent>
-          <p>{learning}</p>
-        </CardContent>
-      </Card>
-    </section>
+          </ol>
+        </ProjectSection>
+      ) : null}
+
+      {hasLearning ? (
+        <ProjectSection>
+          <ProjectSectionHeading eyebrow="Takeaways" title="What I learned" />
+          <ProjectProse content={learning} />
+        </ProjectSection>
+      ) : null}
+    </>
   );
 };
 

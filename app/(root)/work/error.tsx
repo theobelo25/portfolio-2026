@@ -12,7 +12,11 @@ export default function WorkError({
   reset: () => void;
 }) {
   return (
-    <main className="wrapper pt-30 flex flex-col gap-4">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="wrapper pt-30 pb-page-footer flex flex-col gap-4"
+    >
       <Header className={cn("fixed top-8 left-[50%] -translate-x-[50%]")} />
       <RouteError
         error={error}

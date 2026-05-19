@@ -1,7 +1,7 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
 import Image, { StaticImageData } from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
@@ -16,15 +16,24 @@ const HeroAvatar = ({
   className?: string;
 }) => {
   const path = usePathname();
+  const reduceMotion = useReducedMotion() ?? false;
 
-  return (
-    <motion.div
-      layoutId="avatar"
-      className={cn("aspect-square max-w-[300px] basis-[35%]", className)}
-      transition={{ layout: { duration: 0.25, ease: "easeInOut" } }}
-    >
-      <Card className="aspect-square rounded-full overflow-hidden max-w-[300px] py-0">
-        <CardContent className={cn("", avatar === trueMe ? "px-0" : "px-6")}>
+  const image = (
+    <Image
+      src={avatar || casual}
+      alt={"A pixel art avatar of Theodore Belo"}
+      width={0}
+      height={0}
+      sizes="(max-width: 768px) 50vw, 300px"
+      fetchPriority="high"
+      loading="eager"
+    />
+  );
+
+  const card = (
+    <Card className="aspect-square rounded-full overflow-hidden max-w-[300px] py-0">
+      <CardContent className={cn("", avatar === trueMe ? "px-0" : "px-6")}>
+        {reduceMotion ? image : (
           <motion.div
             key={path}
             initial={{ opacity: 0 }}
@@ -32,19 +41,30 @@ const HeroAvatar = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
           >
-            <Image
-              src={avatar || casual}
-              alt={"A pixel art avatar of Theodore Belo"}
-              width={0}
-              height={0}
-              sizes="100vw,50vw"
-              fetchPriority="high"
-              loading="eager"
-              preload={true}
-            />
+            {image}
           </motion.div>
-        </CardContent>
-      </Card>
+        )}
+      </CardContent>
+    </Card>
+  );
+
+  if (reduceMotion) {
+    return (
+      <div
+        className={cn("aspect-square max-w-[300px] basis-[35%]", className)}
+      >
+        {card}
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      layoutId="avatar"
+      className={cn("aspect-square max-w-[300px] basis-[35%]", className)}
+      transition={{ layout: { duration: 0.25, ease: "easeInOut" } }}
+    >
+      {card}
     </motion.div>
   );
 };

@@ -6,13 +6,7 @@ import { absoluteUrl } from "@/lib/site";
 export const revalidate = 86400;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  let projects: Awaited<ReturnType<typeof getAllProjects>> = [];
-  try {
-    projects = await getAllProjects();
-  } catch {
-    // Keep build/deploy resilient if CMS is temporarily unreachable.
-    projects = [];
-  }
+  const { data: projects } = await getAllProjects();
 
   const staticEntries: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), changeFrequency: "weekly", priority: 1 },
