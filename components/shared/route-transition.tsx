@@ -1,12 +1,12 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 /**
  * Route enter uses CSS (see `.route-transition-shell` in `globals.css`).
- * Framer `AnimatePresence` + App Router RSC `children` in the same commit as
- * `pathname` reliably skips enter animations; `key={pathname}` remounts this
- * shell on every path change so the keyframe always runs.
+ * `AnimatePresence mode="popLayout"` keeps the previous route mounted briefly so
+ * shared `layoutId` elements (e.g. avatar) can animate between pages.
  */
 export default function RouteTransition({
   children,
@@ -16,8 +16,10 @@ export default function RouteTransition({
   const pathname = usePathname();
 
   return (
-    <div key={pathname} className="route-transition-shell w-full">
-      {children}
-    </div>
+    <AnimatePresence mode="popLayout" initial={false}>
+      <motion.div key={pathname} className="route-transition-shell w-full">
+        {children}
+      </motion.div>
+    </AnimatePresence>
   );
 }

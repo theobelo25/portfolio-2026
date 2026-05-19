@@ -3,6 +3,7 @@
 import Header from "@/components/shared/header";
 import RouteTransition from "@/components/shared/route-transition";
 import { cn } from "@/lib/utils";
+import { LayoutGroup } from "framer-motion";
 
 /**
  * Fixed nav lives outside `RouteTransition` so it does not remount (and replay
@@ -14,9 +15,9 @@ export default function RootChrome({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <LayoutGroup>
       <Header className={cn("fixed top-8 left-[50%] -translate-x-[50%]")} />
       <RouteTransition>{children}</RouteTransition>
-    </>
+    </LayoutGroup>
   );
 }
