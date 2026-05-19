@@ -7,10 +7,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <div>
-        <RootChrome>{children}</RootChrome>
-      </div>
+    <div className="min-h-screen w-full bg-zinc-50 font-sans dark:bg-black">
+      <RootChrome>{children}</RootChrome>
       <Footer />
     </div>
   );
