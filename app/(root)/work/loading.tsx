@@ -1,4 +1,8 @@
+import HeroAvatar from "@/components/shared/hero/hero-avatar";
 import ProjectCardSkeleton from "@/components/shared/projects/project-card-skeleton";
+import businessAvatar from "@/public/images/avatars/portfolio-avatar-business.webp";
+import WorkWelcomeGrid, { workWelcomeAvatarClassName } from "./work-welcome-grid";
+import WorkWelcomeIntroSkeleton from "./work-welcome-intro-skeleton";
 
 export default function WorkLoading() {
   return (
@@ -7,8 +11,15 @@ export default function WorkLoading() {
       tabIndex={-1}
       className="wrapper flex flex-col gap-4 pt-30 pb-page-footer"
     >
-      {/* Reserve space for Welcome (nav, avatar, intro) without skeleton shapes there */}
-      <div className="min-h-[28rem] md:min-h-[18rem]" aria-hidden />
+      <WorkWelcomeGrid
+        intro={<WorkWelcomeIntroSkeleton />}
+        avatar={
+          <HeroAvatar
+            avatar={businessAvatar}
+            className={workWelcomeAvatarClassName}
+          />
+        }
+      />
       <div
         className="flex flex-col gap-6 animate-pulse"
         aria-busy="true"
