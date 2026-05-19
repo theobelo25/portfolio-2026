@@ -167,11 +167,9 @@
   }
 }
 
-@layer utilities {
-  /** Secondary copy on marketing surfaces (hero, intros) — stronger than legacy muted on zinc-50. */
-  .text-subtle {
-    color: color-mix(in oklch, var(--foreground) 82%, transparent);
-  }
+/** Secondary copy on marketing surfaces (hero, intros) — stronger than legacy muted on zinc-50. */
+@utility text-subtle {
+  color: color-mix(in oklch, var(--foreground) 82%, transparent);
 }
 
 @layer components {
