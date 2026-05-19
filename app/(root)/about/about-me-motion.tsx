@@ -9,7 +9,7 @@ export default function AboutMeMotion({
 }) {
   return (
     <motion.div
-      className="flex flex-col items-center col-span-4"
+      className="col-span-1 flex w-full flex-col items-start md:col-span-4 md:items-center"
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, ease: "easeOut" }}

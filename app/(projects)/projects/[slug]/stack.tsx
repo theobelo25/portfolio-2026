@@ -8,12 +8,12 @@ const STACK_GROUPS = [
   { type: "other", label: "Other" },
 ] as const;
 
-function stackGroupKey(type: string): (typeof STACK_GROUPS)[number]["type"] {
+function stackGroupKey(type?: string): (typeof STACK_GROUPS)[number]["type"] {
   if (type === "frontend" || type === "backend") return type;
   return "other";
 }
 
-function groupStack(stack: { name: string; type: string }[]) {
+function groupStack(stack: { name: string; type?: string }[]) {
   const groups = new Map<string, string[]>();
   for (const { name, type } of stack) {
     const key = stackGroupKey(type);
@@ -50,7 +50,7 @@ const Stack = ({
   stack,
   integrations,
 }: {
-  stack: { name: string; type: string }[];
+  stack: { name: string; type?: string }[];
   integrations: string[];
 }) => {
   const hasStack = stack?.length > 0;

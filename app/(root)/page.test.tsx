@@ -13,10 +13,6 @@ vi.mock("@/components/shared/hero", () => ({
   default: () => <div data-testid="hero" />,
 }));
 
-vi.mock("@/components/home/hero-scroll-down", () => ({
-  default: () => null,
-}));
-
 vi.mock("@/components/home/featured-work", () => ({
   default: () => <section aria-labelledby="featured-work-heading">Featured work</section>,
 }));

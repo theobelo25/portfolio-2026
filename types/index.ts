@@ -15,9 +15,9 @@ export type Project = {
   tags: string[];
   is_featured?: boolean;
   links?: ProjectLink[] | null;
-  stack?: { name: string; type: string }[];
+  stack?: { name: string; type?: string }[];
   challenges?: { title: string; description: string }[];
-  learning?: string;
+  learning?: string | null;
   role?: string | null;
   employer?: string | null;
   team_context?: string | null;

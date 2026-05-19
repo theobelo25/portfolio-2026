@@ -46,14 +46,19 @@ const AboutMe = () => {
         </Link>
         .
       </p>
-      <ProfileLinkList align="center" layout="inline">
+      <ProfileLinkList
+        align="start"
+        layout="inline"
+        className="w-full flex-col gap-6 md:flex-row md:flex-wrap md:justify-center md:gap-x-10 md:gap-y-4"
+      >
         <ProfileLinkRow
           icon={FileText}
           label="Download CV"
           href={RESUME_HREF}
           download
           prefetch={false}
-          align="center"
+          align="start"
+          className="md:justify-center"
           ariaLabel={`Download ${APP_NAME}'s resume (PDF)`}
         />
         <ProfileLinkRow
@@ -62,7 +67,8 @@ const AboutMe = () => {
           subtitle={GITHUB_HANDLE}
           href={GITHUB_URL}
           external
-          align="center"
+          align="start"
+          className="md:justify-center"
           ariaLabel={`${APP_NAME} on GitHub, ${GITHUB_URL}`}
         />
       </ProfileLinkList>

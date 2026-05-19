@@ -46,6 +46,22 @@ describe("parseProject", () => {
     const project = parseProject({ ...validProject, id: "42" });
     expect(project?.id).toBe(42);
   });
+
+  it("accepts null learning from Directus", () => {
+    const project = parseProject({ ...validProject, learning: null });
+    expect(project?.learning).toBeNull();
+  });
+
+  it("accepts stack items without type", () => {
+    const project = parseProject({
+      ...validProject,
+      stack: [{ name: "Next.js" }, { name: "PostgreSQL", type: "backend" }],
+    });
+    expect(project?.stack).toEqual([
+      { name: "Next.js" },
+      { name: "PostgreSQL", type: "backend" },
+    ]);
+  });
 });
 
 describe("mergeTagsFromProjects", () => {

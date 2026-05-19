@@ -1,5 +1,4 @@
 import FeaturedWork from "@/components/home/featured-work";
-import HeroScrollDown from "@/components/home/hero-scroll-down";
 import Hero from "../../components/shared/hero";
 import { getFeaturedProjects } from "@/lib/actions/projects.actions";
 import { homePageMetadata } from "@/lib/metadata";
@@ -17,17 +16,14 @@ export default async function Home() {
     <main
       id="main-content"
       tabIndex={-1}
-      className="wrapper flex flex-col gap-16 pb-page-footer"
+      className="wrapper flex flex-col gap-8 pb-page-footer md:gap-16"
     >
-      {/* pt-30/pb-20 on this section (not the outer main) so vertical centering
-          matches the pre–featured-work hero: padding participates in the same
-          flex/min-h box as justify-center. */}
+      {/* Full-viewport centering on md+; tighter stack on small screens. */}
       <section
-        className="relative flex min-h-[calc(100vh-5rem)] flex-col justify-center pt-30 pb-20"
+        className="relative flex flex-col justify-center pt-28 pb-4 md:min-h-[calc(100vh-5rem)] md:pt-30 md:pb-20"
         aria-labelledby="hero-heading"
       >
         <Hero />
-        <HeroScrollDown />
       </section>
       <FeaturedWork
         projects={featured}

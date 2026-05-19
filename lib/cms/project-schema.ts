@@ -8,7 +8,7 @@ const projectLinkSchema = z.object({
 
 const stackItemSchema = z.object({
   name: z.string(),
-  type: z.string(),
+  type: z.string().optional(),
 });
 
 const challengeSchema = z.object({
@@ -29,7 +29,7 @@ export const projectSchema = z.object({
   links: z.array(projectLinkSchema).nullish(),
   stack: z.array(stackItemSchema).optional(),
   challenges: z.array(challengeSchema).optional(),
-  learning: z.string().optional(),
+  learning: z.string().nullish(),
   role: z.string().nullish(),
   employer: z.string().nullish(),
   team_context: z.string().nullish(),

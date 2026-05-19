@@ -15,7 +15,7 @@ export default function EducationExperienceMotion({
 }: Props) {
   return (
     <motion.div
-      className="col-span-1 mx-auto flex w-full max-w-[300px] flex-col gap-4 md:col-span-2 md:justify-self-center"
+      className="col-span-1 flex w-full flex-col gap-4 md:col-span-2 md:mx-auto md:max-w-[300px] md:justify-self-center"
       initial="hidden"
       animate="visible"
       transition={{ delayChildren: stagger(0.1) }}

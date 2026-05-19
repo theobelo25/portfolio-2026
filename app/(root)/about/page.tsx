@@ -14,11 +14,11 @@ export default function AboutPage() {
     <main
       id="main-content"
       tabIndex={-1}
-      className="wrapper pt-30 pb-page-footer grid grid-cols-1 md:grid-cols-6 gap-y-4 md:gap-x-4"
+      className="wrapper flex flex-col gap-8 pt-30 pb-page-footer md:grid md:grid-cols-6 md:gap-x-4 md:gap-y-4"
     >
       <HeroAvatar
         avatar={fun}
-        className="col-span-1 md:col-span-2 self-center justify-self-center"
+        className="basis-auto w-full max-w-[300px] self-center justify-self-center md:col-span-2"
       />
       <AboutMeMotion>
         <AboutMe />
