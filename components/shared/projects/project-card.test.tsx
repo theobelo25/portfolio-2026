@@ -33,7 +33,7 @@ afterEach(() => {
 });
 
 const baseProject: Project = {
-  id: "1",
+  id: 1,
   title: "Caseflow",
   slug: "caseflow",
   image: "abc",
