@@ -1,73 +1,35 @@
-"use client";
-import Header from "@/components/shared/header";
 import HeroAvatar from "@/components/shared/hero/hero-avatar";
-import { cn } from "@/lib/utils";
-import { motion, stagger } from "framer-motion";
 import fun from "@/public/images/avatars/portfolio-avatar-fun.webp";
-import Skills from "./skills";
+import { SKILL_CATEGORIES } from "@/lib/constants";
+import AboutMeMotion from "./about-me-motion";
 import AboutMe from "./about-me";
 import Education from "./education";
+import EducationExperienceMotion from "./education-experience-motion";
 import Experience from "./experience";
+import SkillsMotion from "./skills-motion";
+import Skills from "./skills";
 
-const SKILL_CATEGORIES = [
-  {
-    title: "Languages & Frameworks",
-    items: [
-      "TypeScript",
-      "JavaScript",
-      "Angular",
-      "React",
-      "Next.js",
-      "Node.js (NestJS)",
-      "ASP.NET Core",
-      "Go",
-    ],
-  },
-  {
-    title: "Backend & Architecture",
-    items: [
-      "REST APIs",
-      "JWT Auth (with refresh rotation)",
-      "SOLID",
-      "Clean Architecture",
-      "Repository & Unit of Work",
-    ],
-  },
-  {
-    title: "Databases",
-    items: ["PostgreSQL", "Prisma", "EF Core", "SQL", "Migrations"],
-  },
-  {
-    title: "DevOps & Tooling",
-    items: ["Docker", "CI/CD", "Dokploy", "Logging (Pino, slog)"],
-  },
-  {
-    title: "Testing",
-    items: ["Jest", "Angular TestBed", "API/E2E testing"],
-  },
-] as const;
-
-const AboutPage = () => {
+export default function AboutPage() {
   return (
-    <main className="wrapper pt-30 pb-20 grid grid-cols-1 md:grid-cols-6 gap-y-4 md:gap-x-4">
-      <Header className={cn("fixed top-8 left-[50%] -translate-x-[50%]")} />
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="wrapper flex flex-col gap-8 pt-30 pb-page-footer md:grid md:grid-cols-6 md:gap-x-4 md:gap-y-4"
+    >
       <HeroAvatar
         avatar={fun}
-        className="col-span-1 md:col-span-2 self-center justify-self-center"
+        className="basis-auto w-full max-w-[300px] self-center justify-self-center md:col-span-2"
       />
-      <AboutMe />
-      <motion.div
-        className="col-span-1 mx-auto flex w-full max-w-[300px] flex-col gap-4 md:col-span-2 md:justify-self-center"
-        initial="hidden"
-        animate="visible"
-        transition={{ delayChildren: stagger(0.1) }}
-      >
-        <Education />
-        <Experience />
-      </motion.div>
-      <Skills categories={SKILL_CATEGORIES} />
+      <AboutMeMotion>
+        <AboutMe />
+      </AboutMeMotion>
+      <EducationExperienceMotion
+        education={<Education />}
+        experience={<Experience />}
+      />
+      <SkillsMotion>
+        <Skills categories={SKILL_CATEGORIES} />
+      </SkillsMotion>
     </main>
   );
-};
-
-export default AboutPage;
+}

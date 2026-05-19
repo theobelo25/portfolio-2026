@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -47,6 +48,9 @@
 }
 
 :root {
+  /* Fixed footer clearance + iOS home indicator (see viewportFit in root layout). */
+  --app-footer-content-gap: calc(5rem + env(safe-area-inset-bottom, 0px));
+  --app-footer-content-gap-lg: calc(10rem + env(safe-area-inset-bottom, 0px));
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -59,11 +63,12 @@
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
+  /* ~4.6:1 on white / zinc-50 for body-sized text (WCAG AA). */
+  --muted-foreground: oklch(0.45 0.046 257.417);
   --accent: oklch(0.968 0.007 247.896);
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.929 0.013 255.508);
+  --border: oklch(0.86 0.018 255.508);
   --input: oklch(0.929 0.013 255.508);
   --ring: oklch(0.704 0.04 256.788);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -93,11 +98,12 @@
   --secondary: oklch(0.279 0.041 260.031);
   --secondary-foreground: oklch(0.984 0.003 247.858);
   --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
+  /* ~4.6:1 on dark background for body-sized text. */
+  --muted-foreground: oklch(0.78 0.04 256.788);
   --accent: oklch(0.279 0.041 260.031);
   --accent-foreground: oklch(0.984 0.003 247.858);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(1 0 0 / 18%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.551 0.027 264.364);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -122,8 +128,120 @@
   body {
     @apply bg-background text-foreground;
   }
+  html {
+    scroll-padding-bottom: var(--app-footer-content-gap);
+  }
 }
 
 @utility wrapper {
   @apply max-w-7xl lg:mx-auto p-5 md:px-10 w-full;
+}
+
+@utility pb-page-footer {
+  padding-bottom: var(--app-footer-content-gap);
+}
+
+@utility pb-page-footer-lg {
+  padding-bottom: var(--app-footer-content-gap-lg);
+}
+
+/* Page enter: layout keeps this shell; `key={pathname}` remounts so animation always runs. */
+@keyframes route-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.route-transition-shell {
+  animation: route-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-transition-shell {
+    animation: none;
+  }
+}
+
+/** Secondary copy on marketing surfaces (hero, intros) — stronger than legacy muted on zinc-50. */
+@utility text-subtle {
+  color: color-mix(in oklch, var(--foreground) 82%, transparent);
+}
+
+@layer components {
+  .project-prose {
+    --tw-prose-body: var(--muted-foreground);
+    --tw-prose-headings: var(--foreground);
+    --tw-prose-lead: var(--muted-foreground);
+    --tw-prose-links: var(--primary);
+    --tw-prose-bold: var(--foreground);
+    --tw-prose-counters: var(--muted-foreground);
+    --tw-prose-bullets: oklch(0.704 0.04 256.788 / 0.55);
+    --tw-prose-hr: var(--border);
+    --tw-prose-quotes: var(--muted-foreground);
+    --tw-prose-quote-borders: var(--border);
+    --tw-prose-captions: var(--muted-foreground);
+    --tw-prose-code: var(--foreground);
+    --tw-prose-pre-code: var(--foreground);
+    --tw-prose-pre-bg: var(--muted);
+    --tw-prose-th-borders: var(--border);
+    --tw-prose-td-borders: var(--border);
+    @apply prose-headings:font-play prose-headings:text-foreground;
+  }
+
+  .project-prose :where(p, li) {
+    @apply font-questrial leading-relaxed text-muted-foreground;
+  }
+
+  .project-prose :where(strong, b) {
+    @apply font-medium text-foreground;
+  }
+
+  .project-prose :where(h2, h3, h4) {
+    @apply font-play text-foreground;
+  }
+
+  .project-prose :where(a) {
+    @apply font-questrial text-primary underline decoration-border/80 underline-offset-4 transition-colors hover:text-foreground;
+  }
+
+  .project-prose :where(blockquote) {
+    @apply rounded-xl border border-border border-l-4 border-l-primary/60 bg-muted/40 px-4 py-3 font-questrial not-italic text-foreground;
+  }
+
+  .project-prose :where(code):not(:where(pre *)) {
+    @apply rounded-md border border-border bg-muted/70 px-1.5 py-0.5 font-mono text-sm text-foreground;
+  }
+
+  .project-prose :where(pre) {
+    @apply overflow-x-auto rounded-xl border border-border bg-muted/50;
+  }
+
+  .project-prose :where(pre code) {
+    @apply border-0 bg-transparent p-0 text-foreground;
+  }
+
+  .project-prose :where(hr) {
+    @apply border-border;
+  }
+
+  .project-prose :where(img, video) {
+    @apply rounded-xl ring-1 ring-border;
+  }
+
+  .project-prose :where(figcaption) {
+    @apply font-questrial text-sm text-subtle;
+  }
+
+  .project-prose :where(table) {
+    @apply text-sm;
+  }
+
+  .project-prose :where(thead th) {
+    @apply text-foreground;
+  }
 }

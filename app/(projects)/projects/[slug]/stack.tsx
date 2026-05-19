@@ -1,45 +1,91 @@
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { AppWindow, Blocks, Database } from "lucide-react";
-import Tags from "@/components/shared/projects/tags";
+import ProjectTagChips from "@/components/shared/projects/project-tag-chips";
+import ProjectSection from "./project-section";
+import ProjectSectionHeading from "./project-section-heading";
+
+const STACK_GROUPS = [
+  { type: "frontend", label: "Frontend" },
+  { type: "backend", label: "Backend" },
+  { type: "other", label: "Other" },
+] as const;
+
+function stackGroupKey(type?: string): (typeof STACK_GROUPS)[number]["type"] {
+  if (type === "frontend" || type === "backend") return type;
+  return "other";
+}
+
+function groupStack(stack: { name: string; type?: string }[]) {
+  const groups = new Map<string, string[]>();
+  for (const { name, type } of stack) {
+    const key = stackGroupKey(type);
+    const list = groups.get(key) ?? [];
+    list.push(name);
+    groups.set(key, list);
+  }
+  return groups;
+}
+
+const StackPillGroup = ({ label, items }: { label: string; items: string[] }) => {
+  if (items.length === 0) return null;
+
+  return (
+    <div className="space-y-2">
+      <p className="font-questrial text-xs uppercase tracking-wide text-muted-foreground">
+        {label}
+      </p>
+      <ul className="flex flex-wrap gap-1.5" aria-label={label}>
+        {items.map((name) => (
+          <li
+            key={name}
+            className="rounded-full border border-border/60 bg-muted/60 px-2.5 py-0.5 font-questrial text-xs text-muted-foreground"
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 const Stack = ({
   stack,
   integrations,
 }: {
-  stack: { name: string; type: string }[];
+  stack: { name: string; type?: string }[];
   integrations: string[];
 }) => {
+  const hasStack = stack?.length > 0;
+  const hasIntegrations = integrations?.length > 0;
+
+  if (!hasStack && !hasIntegrations) return null;
+
+  const grouped = groupStack(stack ?? []);
+
   return (
-    <section className="col-span-1">
-      <Card>
-        <CardTitle>
-          <h2 className="font-play text-center">Tech Stack & Features</h2>
-        </CardTitle>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8">
-          <ul className="text-center space-y-8">
-            {stack?.map((tech) => (
-              <li
-                key={tech.name}
-                className="flex flex-row items-center gap-3 text-xl font-questrial"
-              >
-                {tech.type === "frontend" ? (
-                  <AppWindow size={48} className="mb-1" />
-                ) : tech.type === "backend" ? (
-                  <Database size={48} className="mb-1" />
-                ) : (
-                  <Blocks size={48} className="mb-1" />
-                )}
-                {tech.name}
-              </li>
+    <div className="space-y-6">
+      {hasStack ? (
+        <ProjectSection divided={false}>
+          <ProjectSectionHeading eyebrow="Built with" title="Tech stack" />
+          <div className="space-y-6">
+            {STACK_GROUPS.map(({ type, label }) => (
+              <StackPillGroup
+                key={type}
+                label={label}
+                items={grouped.get(type) ?? []}
+              />
             ))}
-          </ul>
-          <div>
-            <h3 className="font-play mb-4">Integrations:</h3>
-            <Tags tags={integrations} />
           </div>
-        </CardContent>
-      </Card>
-    </section>
+        </ProjectSection>
+      ) : null}
+
+      {hasIntegrations ? (
+        <ProjectSection divided={hasStack}>
+          <p className="font-questrial text-xs uppercase tracking-wide text-muted-foreground">
+            Integrations
+          </p>
+          <ProjectTagChips tags={integrations} label="Integrations" />
+        </ProjectSection>
+      ) : null}
+    </div>
   );
 };
 

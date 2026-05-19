@@ -1,27 +1,75 @@
 "use client";
-import { motion, stagger, Variants } from "framer-motion";
+
+import { motion, stagger, useReducedMotion, type Variants } from "framer-motion";
 import { FILTER_VARIANTS } from "@/components/shared/motion/variants";
 import FilterButton from "./filter-button";
 
-const ProjectFilters = ({ filters }: { filters: string[] }) => {
+function FilterItems({
+  filters,
+  activeFilter,
+  Li,
+}: {
+  filters: string[];
+  activeFilter: string | null;
+  Li: typeof motion.li | "li";
+}) {
+  const ListItem = Li === "li" ? "li" : Li;
+
   return (
-    <motion.ul
-      className="flex gap-4 flex-wrap md:mt-8"
-      initial="hidden"
-      animate="visible"
-      transition={{
-        delayChildren: stagger(0.075),
-      }}
-    >
-      <motion.li variants={FILTER_VARIANTS as Variants}>
-        <FilterButton filter={"All"} />
-      </motion.li>
+    <>
+      <ListItem {...(Li === "li" ? {} : { variants: FILTER_VARIANTS as Variants })}>
+        <FilterButton filter="All" isActive={activeFilter === null} />
+      </ListItem>
       {filters.map((filter) => (
-        <motion.li key={filter} variants={FILTER_VARIANTS as Variants}>
-          <FilterButton filter={filter} />
-        </motion.li>
+        <ListItem
+          key={filter}
+          {...(Li === "li" ? {} : { variants: FILTER_VARIANTS as Variants })}
+        >
+          <FilterButton filter={filter} isActive={activeFilter === filter} />
+        </ListItem>
       ))}
-    </motion.ul>
+    </>
+  );
+}
+
+const ProjectFilters = ({
+  filters,
+  activeFilter,
+}: {
+  filters: string[];
+  /** Canonical tag query or `null` when showing all (“All”). */
+  activeFilter: string | null;
+}) => {
+  const reduceMotion = useReducedMotion() ?? false;
+  const listClassName = "flex flex-wrap gap-2 md:gap-3";
+
+  return (
+    <nav aria-label="Filter projects by tag" className="md:mt-8">
+      {reduceMotion ? (
+        <ul className={listClassName}>
+          <FilterItems
+            filters={filters}
+            activeFilter={activeFilter}
+            Li="li"
+          />
+        </ul>
+      ) : (
+        <motion.ul
+          className={listClassName}
+          initial="hidden"
+          animate="visible"
+          transition={{
+            delayChildren: stagger(0.075),
+          }}
+        >
+          <FilterItems
+            filters={filters}
+            activeFilter={activeFilter}
+            Li={motion.li}
+          />
+        </motion.ul>
+      )}
+    </nav>
   );
 };
 

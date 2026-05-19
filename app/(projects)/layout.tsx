@@ -1,19 +1,22 @@
 import Header from "@/components/shared/header";
 import Footer from "../../components/footer";
-import NavigateBack from "@/components/navigate-back";
+import RouteTransition from "@/components/shared/route-transition";
 import { cn } from "@/lib/utils";
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex justify-center min-h-screen bg-zinc-50 dark:bg-black">
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <Header className={cn("fixed top-8 left-[50%] -translate-x-[50%]")} />
-      <main className="min-h-screen w-full max-w-4xl py-32 px-16 bg-white dark:bg-black">
-        <NavigateBack />
-        {children}
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="wrapper min-h-screen w-full pt-30 pb-page-footer"
+      >
+        <RouteTransition>{children}</RouteTransition>
       </main>
       <Footer />
     </div>
