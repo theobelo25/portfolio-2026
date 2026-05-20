@@ -9,7 +9,10 @@ import ContactAvatarMotion from "./contact-avatar-motion";
 const ContactAvatar = () => {
   return (
     <ContactAvatarMotion>
-      <HeroAvatar avatar={trueMe} />
+      <HeroAvatar
+        avatar={trueMe}
+        className="mx-auto w-full max-w-[300px] basis-auto md:mx-0"
+      />
       <ContactAvatarCaption />
     </ContactAvatarMotion>
   );

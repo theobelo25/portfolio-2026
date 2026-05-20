@@ -11,7 +11,7 @@ export default function ContactMeMotion({
 
   return (
     <motion.section
-      className="col-span-1 w-full py-10"
+      className="w-full"
       initial={reduceMotion ? false : { opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{

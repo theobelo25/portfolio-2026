@@ -49,8 +49,8 @@
 
 :root {
   /* Fixed footer clearance + iOS home indicator (see viewportFit in root layout). */
-  --app-footer-content-gap: calc(5rem + env(safe-area-inset-bottom, 0px));
-  --app-footer-content-gap-lg: calc(10rem + env(safe-area-inset-bottom, 0px));
+  /* ~3rem fixed footer + breathing room + home indicator */
+  --app-footer-content-gap: calc(3.75rem + env(safe-area-inset-bottom, 0px));
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -141,10 +141,6 @@
   padding-bottom: var(--app-footer-content-gap);
 }
 
-@utility pb-page-footer-lg {
-  padding-bottom: var(--app-footer-content-gap-lg);
-}
-
 /* Page enter: layout keeps this shell; `key={pathname}` remounts so animation always runs. */
 @keyframes route-enter {
   from {
@@ -157,7 +153,23 @@
   }
 }
 
+/* Stack route shells during popLayout exit so scroll height ≠ page A + page B */
+.route-transition-host {
+  position: relative;
+  display: grid;
+  width: 100%;
+  align-items: start;
+  overflow: hidden;
+}
+
+.route-transition-host > * {
+  grid-area: 1 / 1;
+  width: 100%;
+  min-width: 0;
+}
+
 .route-transition-shell {
+  min-height: 0;
   animation: route-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
