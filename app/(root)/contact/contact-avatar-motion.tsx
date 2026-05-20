@@ -11,7 +11,7 @@ export default function ContactAvatarMotion({
 
   return (
     <motion.div
-      className="col-span-1 flex flex-col items-center justify-center"
+      className="flex w-full flex-col items-center md:items-start"
       initial={reduceMotion ? false : { opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{

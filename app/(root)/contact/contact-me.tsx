@@ -47,7 +47,7 @@ const ContactMe = () => {
         <p>{CONTACT_RESPONSE_EXPECTATION_LINE}</p>
       </div>
       <ContactHeroCrossLinks />
-      <ProfileLinkList align="start" layout="stack" className="pt-6">
+      <ProfileLinkList align="start" layout="stack" className="gap-6 pt-6">
         <ProfileLinkRow
           icon={Mail}
           label="Email"

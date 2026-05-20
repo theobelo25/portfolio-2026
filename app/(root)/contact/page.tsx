@@ -8,7 +8,7 @@ const ContactPage = () => {
       tabIndex={-1}
       className="wrapper flex flex-col gap-8 pt-30 pb-page-footer"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+      <div className="grid w-full grid-cols-1 items-start gap-8 md:grid-cols-2">
         <ContactMe />
         <ContactAvatar />
       </div>

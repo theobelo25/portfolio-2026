@@ -20,6 +20,13 @@ export default function RouteTransition({
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
+    // After shared layoutId moves (e.g. Home → Contact), shell height can settle late on slow devices.
+    const raf = requestAnimationFrame(() => window.scrollTo(0, 0));
+    const afterLayout = window.setTimeout(() => window.scrollTo(0, 0), 300);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(afterLayout);
+    };
   }, [pathname]);
 
   return (
@@ -27,8 +34,9 @@ export default function RouteTransition({
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.div
           key={pathname}
-          layoutRoot
           className="route-transition-shell w-full"
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
         >
           {children}
         </motion.div>

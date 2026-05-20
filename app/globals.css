@@ -155,8 +155,10 @@
 
 /* Stack route shells during popLayout exit so scroll height ≠ page A + page B */
 .route-transition-host {
+  position: relative;
   display: grid;
   width: 100%;
+  align-items: start;
 }
 
 .route-transition-host > * {
@@ -166,6 +168,8 @@
 }
 
 .route-transition-shell {
+  height: fit-content;
+  min-height: 0;
   animation: route-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
